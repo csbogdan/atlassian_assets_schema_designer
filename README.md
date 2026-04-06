@@ -31,12 +31,23 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Run with Docker
 
+### Docker Compose (recommended for local development)
+
+```bash
+cp .env.compose.example .env.local
+docker compose up -d
+```
+
+This starts PostgreSQL + the app with persistent project storage. Open [http://localhost:3000](http://localhost:3000).
+
+### Docker (standalone)
+
 ```bash
 docker build -t jsm-schema-designer .
 docker run -p 3000:3000 -v $(pwd)/projects:/app/projects jsm-schema-designer
 ```
 
-Open [http://localhost:3000](http://localhost:3000). Projects are persisted in the mounted volume.
+See [Deployment Guide](docs/deployment.md) for production setup, reverse proxy configuration, and troubleshooting.
 
 ## Documentation
 

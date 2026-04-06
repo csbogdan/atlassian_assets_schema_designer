@@ -77,29 +77,75 @@ docker run -p 3000:3000 \
 
 Open `http://localhost:3000`.
 
-### Run with Docker Compose
+### Run with Docker Compose (with PostgreSQL)
 
-Create `docker-compose.yml`:
+A `docker-compose.yml` is included in the repository with PostgreSQL support for multi-user deployments:
 
 ```yaml
-version: "3.9"
+version: '3.9'
+
 services:
-  jsm-schema-designer:
-    image: jsm-schema-designer
-    build: .
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: jsm_assets
+      POSTGRES_USER: jsmapp
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-jsmdev-local-password}
     ports:
-      - "3000:3000"
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U jsmapp -d jsm_assets']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://jsmapp:${DB_PASSWORD:-jsmdev-local-password}@postgres:5432/jsm_assets
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-dev-secret-key}
+      NEXTAUTH_URL: ${NEXTAUTH_URL:-http://localhost:3000}
+      ADMIN_KEY: ${ADMIN_KEY:-dev-admin-key}
+    ports:
+      - '3000:3000'
     volumes:
       - ./projects:/app/projects
     restart: unless-stopped
-    environment:
-      NODE_ENV: production
-      PORT: 3000
+volumes:
+  postgres_data:
+    driver: local
 ```
 
-```bash
-docker compose up -d
-```
+**Setup:**
+
+1. Copy `.env.compose.example` to `.env.local`:
+   ```bash
+   cp .env.compose.example .env.local
+   ```
+
+2. Start the services:
+   ```bash
+   docker compose up -d
+   ```
+
+3. Access the application:
+   ```
+   http://localhost:3000
+   ```
+
+The PostgreSQL service includes a health check, so the app waits for the database to be ready before starting.
+
+**Environment variables** (customize in `.env.local`):
+- `DB_PASSWORD` — PostgreSQL password (default: `jsmdev-local-password`)
+- `NEXTAUTH_SECRET` — session signing key (default: `dev-secret-key`)
+- `NEXTAUTH_URL` — application URL (default: `http://localhost:3000`)
+- `ADMIN_KEY` — admin API key (default: `dev-admin-key`)
 
 ---
 
@@ -107,14 +153,36 @@ docker compose up -d
 
 All variables are optional unless marked **required**.
 
+### Web Server
+
 | Variable | Default | Description |
 |---|---|---|
 | `PORT` | `3000` | Port the Next.js standalone server listens on |
 | `HOSTNAME` | `0.0.0.0` | Bind address |
 | `NODE_ENV` | `production` | Node environment |
 | `NEXT_TELEMETRY_DISABLED` | `1` | Disable Next.js telemetry (set in Dockerfile) |
+| `APP_URL` | `http://localhost:3000` | Application base URL (for redirects and links) |
 
-The application does **not** store API tokens server-side. Tokens are sent per-request from the browser to the Next.js API routes, which proxy them to the Atlassian API. No secrets need to be baked into the image.
+### Database (PostgreSQL)
+
+Used when running with `docker-compose.yml`:
+
+| Variable | Default | Description |
+|---|---|---|
+| `DATABASE_URL` | — | PostgreSQL connection string (e.g., `postgresql://user:pass@localhost:5432/jsm_assets`) |
+| `DATABASE_CA_CERT` | — | Optional CA certificate for database SSL connections |
+
+### Authentication
+
+| Variable | Default | Description |
+|---|---|---|
+| `NEXTAUTH_SECRET` | `dev-secret-key` | Session signing secret (must be a strong random string in production) |
+| `NEXTAUTH_URL` | `http://localhost:3000` | Application URL for NextAuth redirects |
+| `ADMIN_KEY` | `dev-admin-key` | API key for admin endpoints |
+
+### Important Security Note
+
+The application does **not** store Atlassian API tokens server-side. Tokens are sent per-request from the browser to the Next.js API routes, which proxy them to the Atlassian API. No secrets need to be baked into the Docker image.
 
 ---
 
