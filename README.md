@@ -79,6 +79,12 @@ npm test        # unit tests
 npm run e2e     # Playwright E2E smoke tests
 ```
 
+## Disclaimer
+
+⚠️ **This codebase is 100% vibecoded.**
+
+All decisions were made by Claude following vibes, intuition, and whatever felt right at the time. If you encounter architectural choices that seem questionable, unconventional naming, or any cringe-inducing comments in the code — blame Claude, not the humans who approved it.
+
 ## License
 
 🎉 **Internal tool, lovingly built by someone who got tired of editing Assets schemas in raw JSON at 3am.**
