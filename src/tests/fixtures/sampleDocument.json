@@ -1,0 +1,75 @@
+{
+  "$schema": "https://api.atlassian.com/jsm/assets/imports/external/schema/versions/2021_09_15",
+  "schema": {
+    "objectSchema": {
+      "name": "Demo Schema",
+      "objectTypes": [
+        {
+          "externalId": "cmdb-company",
+          "name": "Company",
+          "attributes": [
+            {
+              "externalId": "company-name",
+              "name": "Name",
+              "type": "text",
+              "label": true,
+              "minimumCardinality": 1,
+              "maximumCardinality": 1
+            }
+          ],
+          "children": [
+            {
+              "externalId": "cmdb-users",
+              "name": "Users",
+              "inheritance": true,
+              "attributes": [
+                {
+                  "externalId": "users-object-id",
+                  "name": "Object ID",
+                  "type": "text",
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": true
+                },
+                {
+                  "externalId": "users-company",
+                  "name": "Company",
+                  "type": "referenced_object",
+                  "referenceObjectTypeName": "Company",
+                  "referenceObjectTypeExternalId": "cmdb-company",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "mapping": {
+    "objectTypeMappings": [
+      {
+        "objectTypeExternalId": "cmdb-users",
+        "objectTypeName": "Users",
+        "selector": "users",
+        "description": "Users",
+        "unknownValues": "ADD",
+        "attributesMapping": [
+          {
+            "attributeExternalId": "users-object-id",
+            "attributeName": "Object ID",
+            "attributeLocators": ["userId"],
+            "externalIdPart": true
+          },
+          {
+            "attributeExternalId": "users-company",
+            "attributeName": "Company",
+            "attributeLocators": ["companyName"],
+            "objectMappingIQL": "\"Name\" = ${companyName}"
+          }
+        ]
+      }
+    ]
+  }
+}

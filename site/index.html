@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JSM Assets Schema Designer documentation</title>
+  <meta name="description" content="Documentation for JSM Assets Schema Designer: product overview, feature guides, architecture, API routes, and deployment pipeline.">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <header class="page-header">
+    <div class="shell topbar">
+      <div class="brand">
+        <div class="brand-badge">
+          <img src="assets/logo_3.png" alt="JASD logo">
+        </div>
+        <div class="brand-copy">
+          <small>Product documentation</small>
+          <strong>Assets Schema Designer</strong>
+        </div>
+      </div>
+      <div class="top-links">
+        <button class="menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="site-nav">Menu</button>
+        <nav id="site-nav" class="nav-links" data-menu>
+          <a class="nav-chip" aria-current="page" href="index.html">Overview</a>
+          <a class="nav-chip" href="features.html">Features</a>
+          <a class="nav-chip" href="architecture.html">Architecture</a>
+          <a class="nav-chip" href="api.html">API</a>
+          <a class="nav-chip" href="ops.html">Pipeline</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell hero-grid">
+        <article class="hero-card reveal">
+          <span class="kicker">Phase 7 • External import workflow</span>
+          <h1>Design, validate, compare, and deploy Atlassian Assets import documents.</h1>
+          <p>
+            JSM Assets Schema Designer is a production-grade Next.js application for editing
+            Atlassian external import schema-and-mapping JSON documents. It combines a visual
+            schema workbench, mapping coverage tools, layered validation, semantic diff, staged
+            deletions, project collaboration, and live integration tools for import sources.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="features.html">Read feature guide</a>
+            <a class="button button-secondary" href="architecture.html">Understand architecture</a>
+          </div>
+          <div class="hero-meta">
+            <div>
+              <strong>9 views</strong>
+              <span class="muted">Overview, Schema, Mapping, Validation, Generator, Diff, Tools, Raw JSON, Settings</span>
+            </div>
+            <div>
+              <strong>5 layers</strong>
+              <span class="muted">Parse, shape, contract, cross-reference, business rules</span>
+            </div>
+            <div>
+              <strong>Server-backed</strong>
+              <span class="muted">Projects, sharing, versions, baselines, environments, and changelog storage</span>
+            </div>
+          </div>
+        </article>
+        <aside class="hero-rail reveal">
+          <div class="mini-panel">
+            <strong>Primary audience</strong>
+            <span class="muted">Teams maintaining JSM Assets schemas, import mappings, and deployment workflows at production scale.</span>
+          </div>
+          <div class="mini-panel">
+            <strong>Core document</strong>
+            <span class="muted"><code>AssetsImportDocument</code> with <code>schema.objectSchema</code>, optional <code>statusSchema</code>, and <code>mapping.objectTypeMappings</code>.</span>
+          </div>
+          <div class="mini-panel">
+            <strong>Design goal</strong>
+            <span class="muted">Keep business rules in pure domain code, not in React components, and make large schemas workable without raw JSON-only editing.</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-header reveal">
+          <div>
+            <span class="eyebrow">Product scope</span>
+            <h2>What the application does</h2>
+          </div>
+          <p>
+            The product covers the full external import lifecycle: import or open a project, inspect
+            schema and mappings, validate, edit, compare against saved or live state, and push changes
+            back to Atlassian.
+          </p>
+        </div>
+        <div class="stats-grid">
+          <article class="stat-card reveal">
+            <div class="big">Projects</div>
+            <strong>Disk-backed collaboration</strong>
+            <p>Authenticated workspaces with versions, baselines, activity, sharing, export, staged deletions, and environments.</p>
+          </article>
+          <article class="stat-card reveal">
+            <div class="big">Schema</div>
+            <strong>Tree, graph, refs</strong>
+            <p>Object type hierarchy exploration, schema detail editing, bulk attribute operations, and reference visualization.</p>
+          </article>
+          <article class="stat-card reveal">
+            <div class="big">Validation</div>
+            <strong>Structured diagnostics</strong>
+            <p>Layered diagnostics with JSON pointers, worker-backed execution, rule toggles, deferred findings, and quick navigation.</p>
+          </article>
+          <article class="stat-card reveal">
+            <div class="big">Operations</div>
+            <strong>Live integration</strong>
+            <p>Import from JSM, push mapping, remote diff, schema export, delete tools, GUID replacement, environment push, and icon sync.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-header reveal">
+          <div>
+            <span class="eyebrow">Key workflows</span>
+            <h2>Typical usage path</h2>
+          </div>
+          <p>These are the flows the application is optimized around.</p>
+        </div>
+        <div class="timeline-grid">
+          <article class="panel reveal">
+            <strong>Schema maintenance</strong>
+            <p>Open a project, inspect object types in the Schema Explorer, stage risky deletions, update attributes, validate, save a version, then push to an import source.</p>
+          </article>
+          <article class="panel reveal">
+            <strong>Change review</strong>
+            <p>Capture a baseline, make edits, compare against the baseline or remote live document, review semantic and impact findings, then export a report or changelog.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-header reveal">
+          <div>
+            <span class="eyebrow">Visual reference</span>
+            <h2>Product screens</h2>
+          </div>
+          <p>The published docs ship with real captures from the application for orientation and review.</p>
+        </div>
+        <div class="shot-grid">
+          <article class="shot-card reveal">
+            <img src="assets/screens/pic_1.png" alt="Overview dashboard">
+            <div class="shot-copy">
+              <strong>Overview</strong>
+              <span>Quick health, summary counters, and direct access to the main editing surfaces.</span>
+            </div>
+          </article>
+          <article class="shot-card reveal">
+            <img src="assets/screens/pic_2.png" alt="Schema explorer">
+            <div class="shot-copy">
+              <strong>Schema Explorer</strong>
+              <span>Tree-based object type exploration with editing and staged deletion affordances.</span>
+            </div>
+          </article>
+          <article class="shot-card reveal">
+            <img src="assets/screens/pic_11.png" alt="Mapping explorer">
+            <div class="shot-copy">
+              <strong>Mapping Explorer</strong>
+              <span>Coverage and detail views for selectors, locators, IQL, and mapping gaps.</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="feature-grid">
+          <article class="feature-card reveal">
+            <div class="feature-icon">01</div>
+            <strong>Detailed feature guide</strong>
+            <p>All end-user capabilities documented, including projects, staged deletions, tools, settings, command palette, and shortcuts.</p>
+            <p><a href="features.html">Open features →</a></p>
+          </article>
+          <article class="feature-card reveal">
+            <div class="feature-icon">02</div>
+            <strong>Technical architecture</strong>
+            <p>Layering, store model, domain functions, worker validation path, server persistence, and data flow diagrams.</p>
+            <p><a href="architecture.html">Open architecture →</a></p>
+          </article>
+          <article class="feature-card reveal">
+            <div class="feature-icon">03</div>
+            <strong>API and pipeline</strong>
+            <p>Project and tools routes, auth and permission model, plus GitHub Pages deployment automation.</p>
+            <p><a href="api.html">Open API →</a> · <a href="ops.html">Open pipeline →</a></p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell">
+      <div class="footer-card panel">
+        <div>
+          <span class="eyebrow">Documentation set</span>
+          <p>Use the feature guide for end-user onboarding and the architecture and API pages for implementation work.</p>
+        </div>
+        <div class="hero-actions">
+          <a class="button button-secondary" href="features.html">Features</a>
+          <a class="button button-secondary" href="architecture.html">Architecture</a>
+          <a class="button button-secondary" href="api.html">API</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>

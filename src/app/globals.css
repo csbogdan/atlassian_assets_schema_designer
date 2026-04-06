@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+/* ── Base typography, surface & focus ring ───────────────────────── */
+@layer base {
+  body {
+    @apply bg-[#F4F5F7] text-sm leading-6 text-slate-900 antialiased;
+    font-feature-settings: "kern" 1, "liga" 1;
+  }
+
+  *:focus-visible {
+    @apply outline-none ring-2 ring-blue-500 ring-offset-2;
+  }
+
+  button {
+    @apply transition-all duration-150;
+  }
+
+  input,
+  select,
+  textarea {
+    @apply text-sm;
+  }
+
+  /* Subtle scrollbars */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #B3BAC5 transparent;
+  }
+
+  *::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  *::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-slate-300;
+  }
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+/* ── Reusable component classes ──────────────────────────────────── */
+@layer components {
+  /* Primary action button — Atlassian blue */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-[3px] bg-blue-600 px-3 py-1.5 text-sm font-medium text-white
+           shadow-sm hover:bg-blue-700 active:bg-blue-800 disabled:opacity-50 disabled:cursor-not-allowed
+           transition-all duration-150;
+  }
+
+  /* Secondary / neutral button */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-[3px] border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium text-slate-700
+           shadow-sm hover:bg-slate-50 active:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed
+           transition-all duration-150;
+  }
+
+  /* Danger button */
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-[3px] bg-red-700 px-3 py-1.5 text-sm font-medium text-white
+           shadow-sm hover:bg-red-800 active:bg-red-900 disabled:opacity-50 disabled:cursor-not-allowed
+           transition-all duration-150;
+  }
+
+  /* Subtle ghost button — no background, just text + hover */
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-[3px] px-2 py-1 text-sm font-medium text-slate-600
+           hover:bg-slate-100 active:bg-slate-200 disabled:opacity-50 disabled:cursor-not-allowed
+           transition-all duration-150;
+  }
+
+  /* Atlassian-style card/panel surface */
+  .card {
+    @apply rounded-lg border border-slate-200 bg-white shadow-sm;
+  }
+
+  /* Form input */
+  .input {
+    @apply w-full rounded-[3px] border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-900
+           placeholder:text-slate-400 shadow-sm
+           focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none
+           transition-all duration-150;
+  }
+
+  /* Lozenge / badge */
+  .lozenge {
+    @apply inline-flex items-center rounded-[3px] px-1.5 py-0.5 text-xs font-medium;
+  }
+}

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Architecture • JSM Assets Schema Designer documentation</title>
+  <meta name="description" content="Architecture documentation for JSM Assets Schema Designer.">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <header class="page-header">
+    <div class="shell topbar">
+      <div class="brand">
+        <div class="brand-badge">
+          <img src="assets/logo_3.png" alt="JASD logo">
+        </div>
+        <div class="brand-copy">
+          <small>Product documentation</small>
+          <strong>Assets Schema Designer</strong>
+        </div>
+      </div>
+      <div class="top-links">
+        <button class="menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="site-nav">Menu</button>
+        <nav id="site-nav" class="nav-links" data-menu>
+          <a class="nav-chip" href="index.html">Overview</a>
+          <a class="nav-chip" href="features.html">Features</a>
+          <a class="nav-chip" aria-current="page" href="architecture.html">Architecture</a>
+          <a class="nav-chip" href="api.html">API</a>
+          <a class="nav-chip" href="ops.html">Pipeline</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="shell doc-grid">
+      <aside class="sidebar panel reveal">
+        <h3>Architecture</h3>
+        <nav>
+          <a href="#principles" data-nav-link>Principles</a>
+          <a href="#layers" data-nav-link>Layer model</a>
+          <a href="#domain" data-nav-link>Domain model</a>
+          <a href="#store" data-nav-link>Store and state</a>
+          <a href="#worker" data-nav-link>Validation worker</a>
+          <a href="#projects" data-nav-link>Projects and persistence</a>
+          <a href="#auth" data-nav-link>Auth and permissions</a>
+          <a href="#flow" data-nav-link>Data flow</a>
+        </nav>
+      </aside>
+
+      <div class="content-stack">
+        <section class="panel reveal" id="principles" data-section>
+          <span class="eyebrow">Core rules</span>
+          <h1 style="margin:10px 0 14px;font-size:2.4rem;line-height:1.08;letter-spacing:-0.02em;">Architecture</h1>
+          <ul>
+            <li>Business logic belongs in <code>src/domain</code>.</li>
+            <li>React components stay thin and mostly orchestrate view state.</li>
+            <li>The Zustand store is the application state hub and mutation gateway.</li>
+            <li>Validators and analyzers return structured <code>Diagnostic[]</code>.</li>
+            <li>Heavy validation work runs off the main thread.</li>
+          </ul>
+        </section>
+
+        <section class="panel reveal" id="layers" data-section>
+          <span class="eyebrow">Runtime layering</span>
+          <h2>Layer model</h2>
+          <div class="mermaid-shell">
+            <pre class="mermaid">flowchart TD
+  A[Next.js app and feature components] --> B[Zustand documentStore]
+  B --> C[Domain layer]
+  C --> C1[model]
+  C --> C2[normalizers]
+  C --> C3[selectors]
+  C --> C4[validators]
+  C --> C5[transformers]
+  B --> D[Validation worker]
+  A --> E[Next.js API routes]
+  E --> F[Stored project files]
+  E --> G[Database]
+  E --> H[Atlassian Assets APIs]
+            </pre>
+          </div>
+        </section>
+
+        <section class="panel reveal" id="domain" data-section>
+          <span class="eyebrow">Pure business logic</span>
+          <h2>Domain model and modules</h2>
+          <p>
+            The central type is <code>AssetsImportDocument</code>. It combines schema definitions and mapping definitions
+            and is the single document shape used throughout parsing, validation, transformation, diffing, and export.
+          </p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Area</th>
+                  <th>Responsibilities</th>
+                  <th>Examples</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Model</td>
+                  <td>Types shared across the app and server</td>
+                  <td><code>AssetsImportDocument</code>, <code>Diagnostic</code>, project settings, environments</td>
+                </tr>
+                <tr>
+                  <td>Normalizers</td>
+                  <td>Shape validation and parse flow</td>
+                  <td>Zod-backed parsing, JSON-pointer diagnostics</td>
+                </tr>
+                <tr>
+                  <td>Selectors</td>
+                  <td>Derived views and indexes</td>
+                  <td>Flattened object types, stats, mapping completeness, dead mappings, search index</td>
+                </tr>
+                <tr>
+                  <td>Validators</td>
+                  <td>Rule enforcement</td>
+                  <td>Contract, business, cross-reference, circular refs, inheritance conflicts</td>
+                </tr>
+                <tr>
+                  <td>Transformers</td>
+                  <td>Immutable document rewrites</td>
+                  <td>Semantic diff, staging filter, safe autofix, clone, move, export, impact analysis</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="panel reveal" id="store" data-section>
+          <span class="eyebrow">Application state</span>
+          <h2>Store and state model</h2>
+          <p>
+            <code>documentStore.ts</code> centralizes current document state, raw JSON, diagnostics,
+            revisioning, project metadata, environment definitions, staged deletions, undo/redo, and active view state.
+          </p>
+          <ul>
+            <li><strong>Document state:</strong> parsed document, raw JSON, selected object type, selected mapping, focused JSON path.</li>
+            <li><strong>Validation state:</strong> diagnostics, validation pending flag, rule config, deferred diagnostics.</li>
+            <li><strong>Project state:</strong> current disk project ID, versions, baselines, activity, revision, sync timestamp, sharing-derived project lists.</li>
+            <li><strong>Transformation actions:</strong> update document, apply safe autofix, stage/unstage/commit deletions, save version, load/save project.</li>
+          </ul>
+        </section>
+
+        <section class="panel reveal" id="worker" data-section>
+          <span class="eyebrow">Performance path</span>
+          <h2>Validation worker</h2>
+          <div class="mermaid-shell">
+            <pre class="mermaid">sequenceDiagram
+  participant UI as UI edit
+  participant Store as documentStore
+  participant Hook as useValidationWorker
+  participant Worker as validation.worker.ts
+  participant Domain as validateDocument
+
+  UI->>Store: update document
+  Store->>Hook: revision changes
+  Hook->>Hook: debounce
+  Hook->>Worker: post effective document
+  Worker->>Domain: run validators
+  Domain-->>Worker: diagnostics
+  Worker-->>Hook: latest result only
+  Hook-->>Store: setDiagnosticsFromWorker
+            </pre>
+          </div>
+          <p>The effective document sent to the worker already accounts for staged deletions, which keeps validation aligned with what would actually be exported or pushed.</p>
+        </section>
+
+        <section class="panel reveal" id="projects" data-section>
+          <span class="eyebrow">Persistence</span>
+          <h2>Projects and persistence</h2>
+          <ul>
+            <li>Projects are stored as JSON files under <code>.jsm-projects</code>.</li>
+            <li>Stored payload includes document, versions, baselines, activity, validation config, project settings, staged deletions, sharing, and environments.</li>
+            <li>Export endpoints apply staging before returning the document.</li>
+            <li>Optimistic concurrency uses timestamps to detect out-of-session changes before overwriting.</li>
+          </ul>
+        </section>
+
+        <section class="panel reveal" id="auth" data-section>
+          <span class="eyebrow">Security model</span>
+          <h2>Authentication and permissions</h2>
+          <ul>
+            <li>Auth uses NextAuth credentials provider with bcrypt password verification.</li>
+            <li>Successful and failed login attempts are recorded in the database.</li>
+            <li>Permissions are derived from owner ID, global flag, and explicit share list.</li>
+            <li>Owners have admin rights. Global visibility expands read access. Explicit sharing expands access based on current permission logic.</li>
+          </ul>
+        </section>
+
+        <section class="panel reveal" id="flow" data-section>
+          <span class="eyebrow">Lifecycle</span>
+          <h2>Data flow</h2>
+          <div class="mermaid-shell">
+            <pre class="mermaid">flowchart LR
+  A[Open project or import document] --> B[Normalize and parse]
+  B --> C[Store current document]
+  C --> D[Visual editing and tooling]
+  D --> E[Validation worker]
+  E --> F[Diagnostics]
+  D --> G[Diff and change analysis]
+  G --> H[Save version or save project]
+  H --> I[Export or push to Atlassian]
+            </pre>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="shell">
+      <div class="footer-card panel">
+        <div>
+          <span class="eyebrow">Next</span>
+          <p>Review the route catalog and deployment pipeline after the architecture overview.</p>
+        </div>
+        <div class="hero-actions">
+          <a class="button button-secondary" href="api.html">API</a>
+          <a class="button button-secondary" href="ops.html">Pipeline</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    window.mermaid = mermaid;
+  </script>
+  <script src="assets/app.js"></script>
+</body>
+</html>

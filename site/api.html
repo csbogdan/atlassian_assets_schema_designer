@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>API • JSM Assets Schema Designer documentation</title>
+  <meta name="description" content="API route documentation for JSM Assets Schema Designer.">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <header class="page-header">
+    <div class="shell topbar">
+      <div class="brand">
+        <div class="brand-badge">
+          <img src="assets/logo_3.png" alt="JASD logo">
+        </div>
+        <div class="brand-copy">
+          <small>Product documentation</small>
+          <strong>Assets Schema Designer</strong>
+        </div>
+      </div>
+      <div class="top-links">
+        <button class="menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="site-nav">Menu</button>
+        <nav id="site-nav" class="nav-links" data-menu>
+          <a class="nav-chip" href="index.html">Overview</a>
+          <a class="nav-chip" href="features.html">Features</a>
+          <a class="nav-chip" href="architecture.html">Architecture</a>
+          <a class="nav-chip" aria-current="page" href="api.html">API</a>
+          <a class="nav-chip" href="ops.html">Pipeline</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="shell content-stack">
+      <section class="panel reveal">
+        <span class="eyebrow">Route surface</span>
+        <h1 style="margin:10px 0 14px;font-size:2.4rem;line-height:1.08;letter-spacing:-0.02em;">API routes</h1>
+        <p>
+          The application exposes project routes for persistence and collaboration, plus tool routes that proxy
+          Atlassian operations or execute server-side utilities.
+        </p>
+      </section>
+
+      <section class="api-grid">
+        <article class="api-card reveal">
+          <span class="eyebrow">Project routes</span>
+          <strong><code>/api/projects</code> and <code>/api/projects/[id]</code></strong>
+          <ul>
+            <li><code>GET /api/projects</code> lists projects visible to the current user.</li>
+            <li><code>POST /api/projects</code> creates a new disk-backed project.</li>
+            <li><code>GET /api/projects/[id]</code> loads a single project if readable.</li>
+            <li><code>PUT /api/projects/[id]</code> saves the full project payload.</li>
+            <li><code>PATCH /api/projects/[id]</code> updates status, global share, shareWith, or unshareWith.</li>
+            <li><code>DELETE /api/projects/[id]</code> deletes the project for admins only.</li>
+          </ul>
+        </article>
+        <article class="api-card reveal">
+          <span class="eyebrow">Project helpers</span>
+          <strong>Export and changelog routes</strong>
+          <ul>
+            <li><code>GET /api/projects/[id]/export</code> returns the effective document with staging applied.</li>
+            <li><code>GET /api/projects/[id]/changelog</code> exposes project change history data.</li>
+            <li><code>POST /api/admin/claim-projects</code> supports ownership administration for legacy projects.</li>
+            <li><code>POST /api/admin/share</code> supports user-sharing related admin flows.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="panel reveal">
+        <span class="eyebrow">Tool routes</span>
+        <h2>Operational endpoints</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Route</th>
+                <th>Purpose</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>POST /api/tools/import-from-jsm</code></td>
+                <td>Discover import source and fetch schema-and-mapping</td>
+                <td>Accepts bearer auth and can return discovery-only data or the full document.</td>
+              </tr>
+              <tr>
+                <td><code>POST /api/tools/push-mapping</code></td>
+                <td>PUT or PATCH a mapping document to Atlassian</td>
+                <td>Supports async mode.</td>
+              </tr>
+              <tr>
+                <td><code>GET /api/tools/mapping-progress</code></td>
+                <td>Poll async progress</td>
+                <td>Uses resource IDs returned by async push.</td>
+              </tr>
+              <tr>
+                <td><code>GET /api/tools/config-status</code></td>
+                <td>Read import source status</td>
+                <td>Returns <code>IDLE</code>, <code>RUNNING</code>, <code>DISABLED</code>, or <code>MISSING_MAPPING</code>.</td>
+              </tr>
+              <tr>
+                <td><code>POST /api/tools/remote-diff</code></td>
+                <td>Fetch live remote document for comparison</td>
+                <td>Feeds the diff view's remote source.</td>
+              </tr>
+              <tr>
+                <td><code>POST /api/tools/push-to-env</code></td>
+                <td>Push current schema using a named environment token</td>
+                <td>Discovers the mapping URL first, then performs the write.</td>
+              </tr>
+              <tr>
+                <td><code>POST /api/tools/export-schema</code></td>
+                <td>Export schema plus icon information from Atlassian</td>
+                <td>Supports dry-run style workflows from the UI.</td>
+              </tr>
+              <tr>
+                <td><code>POST /api/tools/delete-object-types</code></td>
+                <td>Delete live object types from a schema</td>
+                <td>High-risk destructive route used by the tool panel.</td>
+              </tr>
+              <tr>
+                <td><code>POST /api/tools/sync-icons</code></td>
+                <td>Copy icon assignments between schemas</td>
+                <td>Supports dry-run and matching controls.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="api-grid">
+        <article class="api-card reveal">
+          <span class="eyebrow">Auth</span>
+          <strong>Credential-based access</strong>
+          <p>Credentials provider auth checks email and password, applies lockout policy, and records login outcomes in the database.</p>
+        </article>
+        <article class="api-card reveal">
+          <span class="eyebrow">Permissions</span>
+          <strong>Effective permission evaluation</strong>
+          <p>Route handlers compute read, write, and admin rights from owner ID, global flag, and share list before serving project data.</p>
+        </article>
+      </section>
+
+      <section class="panel reveal">
+        <span class="eyebrow">Contract</span>
+        <h2>Core payload shape</h2>
+        <pre><code>{
+  "$schema": "optional",
+  "schema": {
+    "objectSchema": {
+      "objectTypes": []
+    },
+    "statusSchema": {}
+  },
+  "mapping": {
+    "objectTypeMappings": []
+  }
+}</code></pre>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="shell">
+      <div class="footer-card panel">
+        <div>
+          <span class="eyebrow">Next</span>
+          <p>See how the static documentation site is deployed automatically.</p>
+        </div>
+        <div class="hero-actions">
+          <a class="button button-secondary" href="ops.html">Pipeline</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>

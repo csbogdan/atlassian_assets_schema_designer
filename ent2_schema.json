@@ -1,0 +1,4082 @@
+{
+  "schema": {
+    "objectSchema": {
+      "name": "Ent2",
+      "description": "",
+      "objectTypes": [
+        {
+          "externalId": "cmdb-services",
+          "name": "Services",
+          "description": "",
+          "inheritance": true,
+          "attributes": [
+            {
+              "externalId": "services-key",
+              "name": "Key",
+              "description": "",
+              "type": "text",
+              "label": false,
+              "minimumCardinality": 1,
+              "maximumCardinality": 1,
+              "unique": false
+            },
+            {
+              "externalId": "services-name",
+              "name": "Name",
+              "description": "The name of the object",
+              "type": "text",
+              "label": true,
+              "minimumCardinality": 1,
+              "maximumCardinality": 1,
+              "unique": false
+            }
+          ],
+          "children": [
+            {
+              "externalId": "cmdb-business-services",
+              "name": "Business Services",
+              "description": "",
+              "inheritance": true,
+              "attributes": [
+                {
+                  "externalId": "business-services-owner",
+                  "name": "Owner",
+                  "description": "\tBusiness owner or accountable stakeholder",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "People",
+                  "referenceObjectTypeExternalId": "cmdb-people",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "business-services-priority",
+                  "name": "Priority",
+                  "description": "Priority",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Priorities",
+                  "referenceObjectTypeExternalId": "cmdb-priorities",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "business-services-status",
+                  "name": "Status",
+                  "description": "Operational status",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Statuses",
+                  "referenceObjectTypeExternalId": "cmdb-statuses",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "business-services-technicalarchitect",
+                  "name": "Technical_Architect",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "People",
+                  "referenceObjectTypeExternalId": "cmdb-people",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "business-services-servicesupportedby",
+                  "name": "Service_Supported_by",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "People",
+                  "referenceObjectTypeExternalId": "cmdb-people",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "business-services-division",
+                  "name": "Division",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Division",
+                  "referenceObjectTypeExternalId": "cmdb-division",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": -1,
+                  "unique": false
+                },
+                {
+                  "externalId": "business-services-deliverylead",
+                  "name": "Delivery_Lead",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "People",
+                  "referenceObjectTypeExternalId": "cmdb-people",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "business-services-opslead",
+                  "name": "Ops_Lead",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "People",
+                  "referenceObjectTypeExternalId": "cmdb-people",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "business-services-business-classification",
+                  "name": "Business Classification",
+                  "description": "Business Classification",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Business Classifications",
+                  "referenceObjectTypeExternalId": "cmdb-business-classifications",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "business-services-sla",
+                  "name": "SLA",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "SLA",
+                  "referenceObjectTypeExternalId": "cmdb-sla",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": -1,
+                  "unique": false
+                },
+                {
+                  "externalId": "business-services-dr-plan-id",
+                  "name": "DR Plan ID",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Disaster Recovery",
+                  "referenceObjectTypeExternalId": "cmdb-disaster-recovery",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "business-services-knowledge-base",
+                  "name": "Knowledge Base",
+                  "description": "",
+                  "type": "url",
+                  "label": false,
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "business-services-information-level",
+                  "name": "Information Level",
+                  "description": "Information Security Level",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Information Classifications",
+                  "referenceObjectTypeExternalId": "cmdb-information-classifications",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "business-services-bcp-type",
+                  "name": "BCP Type",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "DR Type",
+                  "referenceObjectTypeExternalId": "cmdb-dr-type",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "business-services-release-version",
+                  "name": "Release Version",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "business-services-target-compliance",
+                  "name": "Target Compliance",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Compliance Record",
+                  "referenceObjectTypeExternalId": "cmdb-compliance-record",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": -1,
+                  "unique": false
+                },
+                {
+                  "externalId": "business-services-compliance-status",
+                  "name": "Compliance Status",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Compliance Record",
+                  "referenceObjectTypeExternalId": "cmdb-compliance-record",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": -1,
+                  "unique": false
+                },
+                {
+                  "externalId": "business-services-dr-rating",
+                  "name": "DR Rating",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "DR Ratings",
+                  "referenceObjectTypeExternalId": "cmdb-dr-ratings",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "business-services-service-dependency",
+                  "name": "Service Dependency",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Technical Services",
+                  "referenceObjectTypeExternalId": "cmdb-technical-services",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": -1,
+                  "unique": false
+                },
+                {
+                  "externalId": "business-services-technology-stack",
+                  "name": "Technology Stack",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Technology Rating (B|S|H)",
+                  "referenceObjectTypeExternalId": "cmdb-technology-rating-bsh",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": -1,
+                  "unique": false
+                },
+                {
+                  "externalId": "business-services-bhs-rating",
+                  "name": "BHS Rating",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "BSH Rating",
+                  "referenceObjectTypeExternalId": "cmdb-bsh-rating",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                }
+              ]
+            },
+            {
+              "externalId": "cmdb-infrastructure-services",
+              "name": "Infrastructure Services",
+              "description": "",
+              "inheritance": false,
+              "attributes": [
+                {
+                  "externalId": "infrastructure-services-owner",
+                  "name": "Owner",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "People",
+                  "referenceObjectTypeExternalId": "cmdb-people",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-environment",
+                  "name": "Environment",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Environments",
+                  "referenceObjectTypeExternalId": "cmdb-environments",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-az",
+                  "name": "AZ",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Zone",
+                  "referenceObjectTypeExternalId": "cmdb-zone",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-ip-address",
+                  "name": "IP Address",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-colo",
+                  "name": "colo",
+                  "description": "colocation",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Colo",
+                  "referenceObjectTypeExternalId": "cmdb-colo",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-monitoring-dashboard",
+                  "name": "Monitoring Dashboard",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-rack-id",
+                  "name": "Rack ID",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-vendor",
+                  "name": "Vendor",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Vendor",
+                  "referenceObjectTypeExternalId": "cmdb-vendor",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-support-group",
+                  "name": "Support Group",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "People",
+                  "referenceObjectTypeExternalId": "cmdb-people",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-installation-date",
+                  "name": "Installation Date",
+                  "description": "",
+                  "type": "date",
+                  "label": false,
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-warranty-expiry-date",
+                  "name": "Warranty Expiry Date",
+                  "description": "",
+                  "type": "date",
+                  "label": false,
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-bcp",
+                  "name": "BCP",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "DR Type",
+                  "referenceObjectTypeExternalId": "cmdb-dr-type",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-contract",
+                  "name": "Contract",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Contracts",
+                  "referenceObjectTypeExternalId": "cmdb-contracts",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-backup-device",
+                  "name": "Backup device",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Infrastructure Services",
+                  "referenceObjectTypeExternalId": "cmdb-infrastructure-services",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-dr-plan-id",
+                  "name": "DR Plan ID",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Disaster Recovery",
+                  "referenceObjectTypeExternalId": "cmdb-disaster-recovery",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-cost-centre",
+                  "name": "Cost Centre",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-status",
+                  "name": "Status",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Statuses",
+                  "referenceObjectTypeExternalId": "cmdb-statuses",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-patch",
+                  "name": "Patch",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-patching-date",
+                  "name": "Patching Date",
+                  "description": "",
+                  "type": "date",
+                  "label": false,
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-services",
+                  "name": "Services",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Services",
+                  "referenceObjectTypeExternalId": "cmdb-services",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-serial-number",
+                  "name": "Serial number",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-unit-price",
+                  "name": "Unit price",
+                  "description": "",
+                  "type": "double",
+                  "label": false,
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-invoice-number",
+                  "name": "Invoice Number",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-related-assets",
+                  "name": "Related Assets",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Infrastructure Services",
+                  "referenceObjectTypeExternalId": "cmdb-infrastructure-services",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-company",
+                  "name": "Company",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Company",
+                  "referenceObjectTypeExternalId": "cmdb-company",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-exception-approval",
+                  "name": "Exception Approval",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-data-center",
+                  "name": "Data Center",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-exception-approver",
+                  "name": "Exception Approver",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "People",
+                  "referenceObjectTypeExternalId": "cmdb-people",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-target-compliance",
+                  "name": "Target Compliance",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Compliance Record",
+                  "referenceObjectTypeExternalId": "cmdb-compliance-record",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-compliance-status",
+                  "name": "Compliance Status",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Compliance Record",
+                  "referenceObjectTypeExternalId": "cmdb-compliance-record",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-license",
+                  "name": "License",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "License",
+                  "referenceObjectTypeExternalId": "cmdb-license",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-model",
+                  "name": "Model",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Model",
+                  "referenceObjectTypeExternalId": "cmdb-model",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-technology-stack",
+                  "name": "Technology Stack",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Technology Rating (B|S|H)",
+                  "referenceObjectTypeExternalId": "cmdb-technology-rating-bsh",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": -1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-classification",
+                  "name": "Classification",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Infrastructure stack",
+                  "referenceObjectTypeExternalId": "cmdb-infrastructure-stack",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-tags",
+                  "name": "Tags",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Tags",
+                  "referenceObjectTypeExternalId": "cmdb-tags",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": -1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-manufacturer",
+                  "name": "Manufacturer",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Manufacturer",
+                  "referenceObjectTypeExternalId": "cmdb-manufacturer",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-description",
+                  "name": "Description",
+                  "description": "",
+                  "type": "textarea",
+                  "label": false,
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-priority",
+                  "name": "Priority",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Priorities",
+                  "referenceObjectTypeExternalId": "cmdb-priorities",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-services-location",
+                  "name": "Location",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Infrastructure Locations",
+                  "referenceObjectTypeExternalId": "cmdb-infrastructure-locations",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                }
+              ],
+              "children": [
+                {
+                  "externalId": "cmdb-snapshot",
+                  "name": "Snapshot",
+                  "description": "",
+                  "inheritance": true,
+                  "attributes": [
+                    {
+                      "externalId": "snapshot-self-link",
+                      "name": "Self Link",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "snapshot-size",
+                      "name": "Size",
+                      "description": "Size of the snapshot, specified in Gb.",
+                      "type": "double",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    }
+                  ]
+                },
+                {
+                  "externalId": "cmdb-network",
+                  "name": "Network",
+                  "description": "",
+                  "inheritance": true,
+                  "attributes": [
+                    {
+                      "externalId": "network-gateway-ipv4",
+                      "name": "Gateway IPv4",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "network-ipv4-range",
+                      "name": "IPv4 Range",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    }
+                  ],
+                  "children": [
+                    {
+                      "externalId": "cmdb-router",
+                      "name": "Router",
+                      "description": "",
+                      "inheritance": true,
+                      "attributes": [
+                        {
+                          "externalId": "router-routername",
+                          "name": "Router_Name",
+                          "description": "",
+                          "type": "text",
+                          "label": false,
+                          "minimumCardinality": 0,
+                          "maximumCardinality": 1,
+                          "unique": false
+                        },
+                        {
+                          "externalId": "router-routermodel",
+                          "name": "Router_Model",
+                          "description": "",
+                          "type": "text",
+                          "label": false,
+                          "minimumCardinality": 0,
+                          "maximumCardinality": 1,
+                          "unique": false
+                        },
+                        {
+                          "externalId": "router-routerstatus",
+                          "name": "Router_Status",
+                          "description": "",
+                          "type": "status",
+                          "label": false,
+                          "typeValues": [
+                            "In Service",
+                            "Running",
+                            "Stopped"
+                          ],
+                          "minimumCardinality": 0,
+                          "maximumCardinality": 1,
+                          "unique": false
+                        }
+                      ]
+                    },
+                    {
+                      "externalId": "cmdb-vpc",
+                      "name": "VPC",
+                      "description": "",
+                      "inheritance": true
+                    },
+                    {
+                      "externalId": "cmdb-switch",
+                      "name": "Switch",
+                      "description": "",
+                      "inheritance": true,
+                      "attributes": [
+                        {
+                          "externalId": "switch-switchid",
+                          "name": "Switch_ID",
+                          "description": "",
+                          "type": "text",
+                          "label": false,
+                          "minimumCardinality": 0,
+                          "maximumCardinality": 1,
+                          "unique": false
+                        },
+                        {
+                          "externalId": "switch-switchport",
+                          "name": "Switch_Port",
+                          "description": "",
+                          "type": "text",
+                          "label": false,
+                          "minimumCardinality": 0,
+                          "maximumCardinality": 1,
+                          "unique": false
+                        },
+                        {
+                          "externalId": "switch-switchstatus",
+                          "name": "Switch_Status",
+                          "description": "",
+                          "type": "status",
+                          "label": false,
+                          "typeValues": [
+                            "In Service",
+                            "Running",
+                            "Stopped"
+                          ],
+                          "minimumCardinality": 0,
+                          "maximumCardinality": 1,
+                          "unique": false
+                        }
+                      ]
+                    },
+                    {
+                      "externalId": "cmdb-load-balancer",
+                      "name": "Load Balancer",
+                      "description": "",
+                      "inheritance": true
+                    },
+                    {
+                      "externalId": "cmdb-firewall",
+                      "name": "Firewall",
+                      "description": "",
+                      "inheritance": true,
+                      "attributes": [
+                        {
+                          "externalId": "firewall-direction",
+                          "name": "Direction",
+                          "description": "",
+                          "type": "text",
+                          "label": false,
+                          "minimumCardinality": 0,
+                          "maximumCardinality": 1,
+                          "unique": false
+                        },
+                        {
+                          "externalId": "firewall-allowed",
+                          "name": "Allowed",
+                          "description": "",
+                          "type": "textarea",
+                          "label": false,
+                          "minimumCardinality": 0,
+                          "maximumCardinality": 1,
+                          "unique": false
+                        },
+                        {
+                          "externalId": "firewall-denied",
+                          "name": "Denied",
+                          "description": "",
+                          "type": "textarea",
+                          "label": false,
+                          "minimumCardinality": 0,
+                          "maximumCardinality": 1,
+                          "unique": false
+                        },
+                        {
+                          "externalId": "firewall-destination-ranges",
+                          "name": "Destination Ranges",
+                          "description": "",
+                          "type": "textarea",
+                          "label": false,
+                          "minimumCardinality": 0,
+                          "maximumCardinality": 1,
+                          "unique": false
+                        },
+                        {
+                          "externalId": "firewall-source-ranges",
+                          "name": "Source Ranges",
+                          "description": "",
+                          "type": "textarea",
+                          "label": false,
+                          "minimumCardinality": 0,
+                          "maximumCardinality": 1,
+                          "unique": false
+                        },
+                        {
+                          "externalId": "firewall-source-service-accounts",
+                          "name": "Source Service Accounts",
+                          "description": "",
+                          "type": "referenced_object",
+                          "label": false,
+                          "referenceObjectTypeName": "People",
+                          "referenceObjectTypeExternalId": "cmdb-people",
+                          "minimumCardinality": 0,
+                          "maximumCardinality": -1,
+                          "unique": false
+                        },
+                        {
+                          "externalId": "firewall-target-service-accounts",
+                          "name": "Target Service Accounts",
+                          "description": "",
+                          "type": "referenced_object",
+                          "label": false,
+                          "referenceObjectTypeName": "People",
+                          "referenceObjectTypeExternalId": "cmdb-people",
+                          "minimumCardinality": 0,
+                          "maximumCardinality": -1,
+                          "unique": false
+                        }
+                      ]
+                    },
+                    {
+                      "externalId": "cmdb-gateway",
+                      "name": "Gateway",
+                      "description": "",
+                      "inheritance": true,
+                      "attributes": [
+                        {
+                          "externalId": "gateway-network",
+                          "name": "Network",
+                          "description": "",
+                          "type": "referenced_object",
+                          "label": false,
+                          "referenceObjectTypeName": "Network",
+                          "referenceObjectTypeExternalId": "cmdb-network",
+                          "minimumCardinality": 0,
+                          "maximumCardinality": 1,
+                          "unique": false
+                        },
+                        {
+                          "externalId": "gateway-region",
+                          "name": "Region",
+                          "description": "",
+                          "type": "referenced_object",
+                          "label": false,
+                          "referenceObjectTypeName": "Region",
+                          "referenceObjectTypeExternalId": "cmdb-region",
+                          "minimumCardinality": 0,
+                          "maximumCardinality": 1,
+                          "unique": false
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "externalId": "cmdb-model",
+                  "name": "Model",
+                  "description": "",
+                  "inheritance": true
+                },
+                {
+                  "externalId": "cmdb-hardware-device",
+                  "name": "Hardware Device",
+                  "description": "",
+                  "inheritance": true,
+                  "attributes": [
+                    {
+                      "externalId": "hardware-device-operating-system",
+                      "name": "Operating System",
+                      "description": "",
+                      "type": "referenced_object",
+                      "label": false,
+                      "referenceObjectTypeName": "Operating System",
+                      "referenceObjectTypeExternalId": "cmdb-operating-system",
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "hardware-device-asset-type",
+                      "name": "Asset type",
+                      "description": "",
+                      "type": "referenced_object",
+                      "label": false,
+                      "referenceObjectTypeName": "Asset Type",
+                      "referenceObjectTypeExternalId": "cmdb-asset-type",
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "hardware-device-shared-device",
+                      "name": "Shared Device",
+                      "description": "",
+                      "type": "boolean",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "hardware-device-device-status",
+                      "name": "Device Status",
+                      "description": "",
+                      "type": "status",
+                      "label": false,
+                      "typeValues": [
+                        "Active",
+                        "Closed",
+                        "Support Requested"
+                      ],
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "hardware-device-mac-address",
+                      "name": "MAC Address",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    }
+                  ],
+                  "children": [
+                    {
+                      "externalId": "cmdb-virtual-device",
+                      "name": "Virtual Device",
+                      "description": "",
+                      "inheritance": true,
+                      "attributes": [
+                        {
+                          "externalId": "virtual-device-self-link",
+                          "name": "Self Link",
+                          "description": "Server-defined URL for this resource.",
+                          "type": "text",
+                          "label": false,
+                          "minimumCardinality": 0,
+                          "maximumCardinality": 1,
+                          "unique": false
+                        },
+                        {
+                          "externalId": "virtual-device-region",
+                          "name": "Region",
+                          "description": "",
+                          "type": "referenced_object",
+                          "label": false,
+                          "referenceObjectTypeName": "Region",
+                          "referenceObjectTypeExternalId": "cmdb-region",
+                          "minimumCardinality": 0,
+                          "maximumCardinality": 1,
+                          "unique": false
+                        },
+                        {
+                          "externalId": "virtual-device-machine-type",
+                          "name": "Machine Type",
+                          "description": "",
+                          "type": "referenced_object",
+                          "label": false,
+                          "referenceObjectTypeName": "Machine Type",
+                          "referenceObjectTypeExternalId": "cmdb-machine-type",
+                          "minimumCardinality": 0,
+                          "maximumCardinality": 1,
+                          "unique": false
+                        },
+                        {
+                          "externalId": "virtual-device-service-accounts",
+                          "name": "Service Accounts",
+                          "description": "",
+                          "type": "referenced_object",
+                          "label": false,
+                          "referenceObjectTypeName": "People",
+                          "referenceObjectTypeExternalId": "cmdb-people",
+                          "minimumCardinality": 0,
+                          "maximumCardinality": 1,
+                          "unique": false
+                        },
+                        {
+                          "externalId": "virtual-device-zone",
+                          "name": "Zone",
+                          "description": "",
+                          "type": "referenced_object",
+                          "label": false,
+                          "referenceObjectTypeName": "Zone",
+                          "referenceObjectTypeExternalId": "cmdb-zone",
+                          "minimumCardinality": 0,
+                          "maximumCardinality": 1,
+                          "unique": false
+                        },
+                        {
+                          "externalId": "virtual-device-firewallrules",
+                          "name": "Firewall-Rules",
+                          "description": "",
+                          "type": "referenced_object",
+                          "label": false,
+                          "referenceObjectTypeName": "Firewall",
+                          "referenceObjectTypeExternalId": "cmdb-firewall",
+                          "minimumCardinality": 0,
+                          "maximumCardinality": 1,
+                          "unique": false
+                        }
+                      ],
+                      "children": [
+                        {
+                          "externalId": "cmdb-cluster",
+                          "name": "Cluster",
+                          "description": "Cloud Cluster",
+                          "inheritance": true,
+                          "attributes": [
+                            {
+                              "externalId": "cluster-cluster-type",
+                              "name": "Cluster Type",
+                              "description": "",
+                              "type": "text",
+                              "label": false,
+                              "minimumCardinality": 0,
+                              "maximumCardinality": 1,
+                              "unique": false
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "externalId": "cmdb-physical-device",
+                      "name": "Physical Device",
+                      "description": "",
+                      "inheritance": true,
+                      "attributes": [
+                        {
+                          "externalId": "physical-device-id",
+                          "name": "Device ID",
+                          "description": "",
+                          "type": "text",
+                          "label": false,
+                          "minimumCardinality": 0,
+                          "maximumCardinality": 1,
+                          "unique": true
+                        },
+                        {
+                          "externalId": "physical-device-display-name",
+                          "name": "Display Name",
+                          "description": "",
+                          "type": "text",
+                          "label": true,
+                          "minimumCardinality": 0,
+                          "maximumCardinality": 1,
+                          "unique": false
+                        },
+                        {
+                          "externalId": "physical-device-manufacturer",
+                          "name": "Manufacturer",
+                          "description": "",
+                          "type": "text",
+                          "label": false,
+                          "minimumCardinality": 0,
+                          "maximumCardinality": 1,
+                          "unique": false
+                        },
+                        {
+                          "externalId": "physical-device-model",
+                          "name": "Model",
+                          "description": "",
+                          "type": "text",
+                          "label": false,
+                          "minimumCardinality": 0,
+                          "maximumCardinality": 1,
+                          "unique": false
+                        },
+                        {
+                          "externalId": "physical-device-os-version",
+                          "name": "OS Version",
+                          "description": "",
+                          "type": "text",
+                          "label": false,
+                          "minimumCardinality": 0,
+                          "maximumCardinality": 1,
+                          "unique": false
+                        },
+                        {
+                          "externalId": "physical-device-management-type",
+                          "name": "Management Type",
+                          "description": "",
+                          "type": "text",
+                          "label": false,
+                          "minimumCardinality": 0,
+                          "maximumCardinality": 1,
+                          "unique": false
+                        },
+                        {
+                          "externalId": "physical-device-enrollment-type",
+                          "name": "Enrollment Type",
+                          "description": "",
+                          "type": "text",
+                          "label": false,
+                          "minimumCardinality": 0,
+                          "maximumCardinality": 1,
+                          "unique": false
+                        },
+                        {
+                          "externalId": "physical-device-enrollment-profile",
+                          "name": "Enrollment Profile",
+                          "description": "",
+                          "type": "text",
+                          "label": false,
+                          "minimumCardinality": 0,
+                          "maximumCardinality": 1,
+                          "unique": false
+                        },
+                        {
+                          "externalId": "physical-device-is-managed",
+                          "name": "Is Managed",
+                          "description": "",
+                          "type": "boolean",
+                          "label": false,
+                          "minimumCardinality": 0,
+                          "maximumCardinality": 1,
+                          "unique": false
+                        },
+                        {
+                          "externalId": "physical-device-is-compliant",
+                          "name": "Is Compliant",
+                          "description": "",
+                          "type": "boolean",
+                          "label": false,
+                          "minimumCardinality": 0,
+                          "maximumCardinality": 1,
+                          "unique": false
+                        },
+                        {
+                          "externalId": "physical-device-account-enabled",
+                          "name": "Account Enabled",
+                          "description": "",
+                          "type": "boolean",
+                          "label": false,
+                          "minimumCardinality": 0,
+                          "maximumCardinality": 1,
+                          "unique": false
+                        },
+                        {
+                          "externalId": "physical-device-operating-system-ref",
+                          "name": "Operating System",
+                          "description": "",
+                          "type": "referenced_object",
+                          "label": false,
+                          "referenceObjectTypeName": "Operating System",
+                          "referenceObjectTypeExternalId": "cmdb-operating-system",
+                          "minimumCardinality": 0,
+                          "maximumCardinality": 1,
+                          "unique": false
+                        },
+                        {
+                          "externalId": "physical-device-asset-type-ref",
+                          "name": "Asset Type Reference",
+                          "description": "",
+                          "type": "referenced_object",
+                          "label": false,
+                          "referenceObjectTypeName": "Asset Type",
+                          "referenceObjectTypeExternalId": "cmdb-asset-type",
+                          "minimumCardinality": 0,
+                          "maximumCardinality": 1,
+                          "unique": false
+                        },
+                        {
+                          "externalId": "physical-device-registered-owners",
+                          "name": "Registered Owners",
+                          "description": "",
+                          "type": "referenced_object",
+                          "label": false,
+                          "referenceObjectTypeName": "Users",
+                          "referenceObjectTypeExternalId": "cmdb-users",
+                          "minimumCardinality": 0,
+                          "maximumCardinality": -1,
+                          "unique": false
+                        },
+                        {
+                          "externalId": "physical-device-registered-users",
+                          "name": "Registered Users",
+                          "description": "",
+                          "type": "referenced_object",
+                          "label": false,
+                          "referenceObjectTypeName": "Users",
+                          "referenceObjectTypeExternalId": "cmdb-users",
+                          "minimumCardinality": 0,
+                          "maximumCardinality": -1,
+                          "unique": false
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "externalId": "cmdb-storage",
+                  "name": "Storage",
+                  "description": "",
+                  "inheritance": true,
+                  "attributes": [
+                    {
+                      "externalId": "storage-capacity",
+                      "name": "Capacity",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "storage-mount-point",
+                      "name": "Mount Point",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "storage-region",
+                      "name": "Region",
+                      "description": "",
+                      "type": "referenced_object",
+                      "label": false,
+                      "referenceObjectTypeName": "Region",
+                      "referenceObjectTypeExternalId": "cmdb-region",
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    }
+                  ],
+                  "children": [
+                    {
+                      "externalId": "cmdb-nfs",
+                      "name": "NFS",
+                      "description": "",
+                      "inheritance": true
+                    }
+                  ]
+                },
+                {
+                  "externalId": "cmdb-software",
+                  "name": "Software",
+                  "description": "",
+                  "inheritance": true
+                },
+                {
+                  "externalId": "cmdb-operating-system",
+                  "name": "Operating System",
+                  "description": "",
+                  "inheritance": true,
+                  "attributes": [
+                    {
+                      "externalId": "operating-system-name",
+                      "name": "Name",
+                      "description": "Friendly name e.g. Windows 11 23H2 — 22631.5768",
+                      "type": "text",
+                      "label": true,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "operating-system-version",
+                      "name": "Version",
+                      "description": "Raw version key used for linking e.g. 10.0.22631.5768",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "operating-system-platform",
+                      "name": "Platform",
+                      "description": "OS family e.g. Windows, macOS, iOS, Android",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "operating-system-major-version",
+                      "name": "Major Version",
+                      "description": "e.g. Windows 11, macOS Sequoia, iOS 17, Android 14",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "operating-system-feature-update",
+                      "name": "Feature Update",
+                      "description": "Sub-release name e.g. 23H2, 15.6 — omitted where not applicable",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    }
+                  ]
+                },
+                {
+                  "externalId": "cmdb-tags",
+                  "name": "Tags",
+                  "description": "",
+                  "inheritance": true
+                },
+                {
+                  "externalId": "cmdb-manufacturer",
+                  "name": "Manufacturer",
+                  "description": "",
+                  "inheritance": true
+                },
+                {
+                  "externalId": "cmdb-region",
+                  "name": "Region",
+                  "description": "",
+                  "inheritance": true,
+                  "attributes": [
+                    {
+                      "externalId": "region-id",
+                      "name": "Id",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    }
+                  ],
+                  "children": [
+                    {
+                      "externalId": "cmdb-zone",
+                      "name": "Zone",
+                      "description": "",
+                      "inheritance": true
+                    }
+                  ]
+                },
+                {
+                  "externalId": "cmdb-license",
+                  "name": "License",
+                  "description": "",
+                  "inheritance": true
+                },
+                {
+                  "externalId": "cmdb-image",
+                  "name": "Image",
+                  "description": "",
+                  "inheritance": true,
+                  "attributes": [
+                    {
+                      "externalId": "image-self-link",
+                      "name": "Self Link",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "image-size",
+                      "name": "Size",
+                      "description": "Size of the image when restored onto a persistent disk (in GB).",
+                      "type": "double",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "image-archive-size",
+                      "name": "Archive Size",
+                      "description": "Size of the image tar.gz archive stored in Google Cloud Storage (in bytes).",
+                      "type": "double",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "image-source-image",
+                      "name": "Source Image",
+                      "description": "The source image used to create this image.",
+                      "type": "referenced_object",
+                      "label": false,
+                      "referenceObjectTypeName": "Image",
+                      "referenceObjectTypeExternalId": "cmdb-image",
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "image-source-snapshot",
+                      "name": "Source Snapshot",
+                      "description": "The source snapshot used to create this image.",
+                      "type": "referenced_object",
+                      "label": false,
+                      "referenceObjectTypeName": "Snapshot",
+                      "referenceObjectTypeExternalId": "cmdb-snapshot",
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    }
+                  ]
+                },
+                {
+                  "externalId": "cmdb-database",
+                  "name": "Database",
+                  "description": "",
+                  "inheritance": true,
+                  "attributes": [
+                    {
+                      "externalId": "database-dbid",
+                      "name": "DB_ID",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "database-dbtype",
+                      "name": "DB_Type",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "database-dbversion",
+                      "name": "DB_Version",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "database-dbhost",
+                      "name": "DB_Host",
+                      "description": "",
+                      "type": "referenced_object",
+                      "label": false,
+                      "referenceObjectTypeName": "Hardware Device",
+                      "referenceObjectTypeExternalId": "cmdb-hardware-device",
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "database-dblastbackupdate",
+                      "name": "DB_LastBackupDate",
+                      "description": "",
+                      "type": "date",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "database-service-account",
+                      "name": "Service Account",
+                      "description": "",
+                      "type": "referenced_object",
+                      "label": false,
+                      "referenceObjectTypeName": "People",
+                      "referenceObjectTypeExternalId": "cmdb-people",
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "database-failover-replica-available",
+                      "name": "Failover Replica Available",
+                      "description": "",
+                      "type": "boolean",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "database-failover-replica-database-instance",
+                      "name": "Failover Replica Database Instance",
+                      "description": "",
+                      "type": "referenced_object",
+                      "label": false,
+                      "referenceObjectTypeName": "Database",
+                      "referenceObjectTypeExternalId": "cmdb-database",
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    }
+                  ]
+                },
+                {
+                  "externalId": "cmdb-machine-type",
+                  "name": "Machine Type",
+                  "description": "",
+                  "inheritance": true,
+                  "attributes": [
+                    {
+                      "externalId": "machine-type-guest-cpus",
+                      "name": "Guest Cpus",
+                      "description": "The number of virtual CPUs that are available to the instance.",
+                      "type": "integer",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "machine-type-shared-cpu",
+                      "name": "Shared Cpu",
+                      "description": "Whether this machine type has a shared CPU.",
+                      "type": "boolean",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "machine-type-maximum-persistent-disks",
+                      "name": "Maximum Persistent Disks",
+                      "description": "",
+                      "type": "integer",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "machine-type-maximum-persistent-disks-size",
+                      "name": "Maximum Persistent Disks Size",
+                      "description": "Maximum total persistent disks size (GB) allowed.",
+                      "type": "double",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "machine-type-memory",
+                      "name": "Memory",
+                      "description": "The amount of physical memory available to the instance, defined in MB.",
+                      "type": "double",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "machine-type-zone",
+                      "name": "Zone",
+                      "description": "",
+                      "type": "referenced_object",
+                      "label": false,
+                      "referenceObjectTypeName": "Zone",
+                      "referenceObjectTypeExternalId": "cmdb-zone",
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "machine-type-image",
+                      "name": "Image",
+                      "description": "",
+                      "type": "referenced_object",
+                      "label": false,
+                      "referenceObjectTypeName": "Image",
+                      "referenceObjectTypeExternalId": "cmdb-image",
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "externalId": "cmdb-technical-services",
+              "name": "Technical Services",
+              "description": "",
+              "inheritance": true,
+              "attributes": [
+                {
+                  "externalId": "technical-services-cname",
+                  "name": "CName",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "technical-services-aws-dns-name",
+                  "name": "AWS DNS Name",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "technical-services-environment",
+                  "name": "Environment",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Environments",
+                  "referenceObjectTypeExternalId": "cmdb-environments",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "technical-services-colo",
+                  "name": "colo",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Colo",
+                  "referenceObjectTypeExternalId": "cmdb-colo",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "technical-services-status",
+                  "name": "Status",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Statuses",
+                  "referenceObjectTypeExternalId": "cmdb-statuses",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "technical-services-az",
+                  "name": "AZ",
+                  "description": "Zone",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Zone",
+                  "referenceObjectTypeExternalId": "cmdb-zone",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": -1,
+                  "unique": false
+                },
+                {
+                  "externalId": "technical-services-cluster",
+                  "name": "Cluster",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Cluster",
+                  "referenceObjectTypeExternalId": "cmdb-cluster",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "technical-services-last-deploy-date",
+                  "name": "Last Deploy Date",
+                  "description": "",
+                  "type": "date_time",
+                  "label": false,
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "technical-services-owner",
+                  "name": "Owner",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "People",
+                  "referenceObjectTypeExternalId": "cmdb-people",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "technical-services-architect",
+                  "name": "Architect",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "People",
+                  "referenceObjectTypeExternalId": "cmdb-people",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "technical-services-version",
+                  "name": "Version",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "technical-services-sla",
+                  "name": "SLA",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "SLA",
+                  "referenceObjectTypeExternalId": "cmdb-sla",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "technical-services-priority",
+                  "name": "Priority",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Priorities",
+                  "referenceObjectTypeExternalId": "cmdb-priorities",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "technical-services-dr-plan-id",
+                  "name": "DR Plan ID",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Disaster Recovery",
+                  "referenceObjectTypeExternalId": "cmdb-disaster-recovery",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "technical-services-bcp-type",
+                  "name": "BCP Type",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "DR Type",
+                  "referenceObjectTypeExternalId": "cmdb-dr-type",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "technical-services-support-group",
+                  "name": "Support Group",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "People",
+                  "referenceObjectTypeExternalId": "cmdb-people",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "technical-services-host-server",
+                  "name": "Host Server",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Hardware Device",
+                  "referenceObjectTypeExternalId": "cmdb-hardware-device",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "technical-services-database",
+                  "name": "Database",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Database",
+                  "referenceObjectTypeExternalId": "cmdb-database",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": -1,
+                  "unique": false
+                },
+                {
+                  "externalId": "technical-services-target-compliance",
+                  "name": "Target Compliance",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Compliance Record",
+                  "referenceObjectTypeExternalId": "cmdb-compliance-record",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": -1,
+                  "unique": false
+                },
+                {
+                  "externalId": "technical-services-compliance-status",
+                  "name": "Compliance Status",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Compliance Record",
+                  "referenceObjectTypeExternalId": "cmdb-compliance-record",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": -1,
+                  "unique": false
+                },
+                {
+                  "externalId": "technical-services-dr-rating",
+                  "name": "DR Rating",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "DR Ratings",
+                  "referenceObjectTypeExternalId": "cmdb-dr-ratings",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "technical-services-service-dependency",
+                  "name": "Service Dependency",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Services",
+                  "referenceObjectTypeExternalId": "cmdb-services",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": -1,
+                  "unique": false
+                },
+                {
+                  "externalId": "technical-services-hostlocation",
+                  "name": "Host_Location",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Infrastructure Locations",
+                  "referenceObjectTypeExternalId": "cmdb-infrastructure-locations",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "technical-services-technology-stack",
+                  "name": "Technology Stack",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Technology Rating (B|S|H)",
+                  "referenceObjectTypeExternalId": "cmdb-technology-rating-bsh",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": -1,
+                  "unique": false
+                },
+                {
+                  "externalId": "technical-services-ip",
+                  "name": "IP",
+                  "description": "",
+                  "type": "ipaddress",
+                  "label": false,
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "technical-services-linked-services",
+                  "name": "Linked services",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Technical Services",
+                  "referenceObjectTypeExternalId": "cmdb-technical-services",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": -1,
+                  "unique": false
+                }
+              ],
+              "children": [
+                {
+                  "externalId": "cmdb-proxy-gui",
+                  "name": "Proxy (GUI)",
+                  "description": "",
+                  "inheritance": true
+                },
+                {
+                  "externalId": "cmdb-mq",
+                  "name": "MQ",
+                  "description": "Messaging Queue service",
+                  "inheritance": true,
+                  "attributes": [
+                    {
+                      "externalId": "mq-load-balancer",
+                      "name": "Load Balancer",
+                      "description": "",
+                      "type": "referenced_object",
+                      "label": false,
+                      "referenceObjectTypeName": "Load Balancer",
+                      "referenceObjectTypeExternalId": "cmdb-load-balancer",
+                      "minimumCardinality": 0,
+                      "maximumCardinality": -1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "mq-firewall",
+                      "name": "Firewall",
+                      "description": "",
+                      "type": "referenced_object",
+                      "label": false,
+                      "referenceObjectTypeName": "Firewall",
+                      "referenceObjectTypeExternalId": "cmdb-firewall",
+                      "minimumCardinality": 0,
+                      "maximumCardinality": -1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "mq-vpc",
+                      "name": "VPC",
+                      "description": "",
+                      "type": "referenced_object",
+                      "label": false,
+                      "referenceObjectTypeName": "VPC",
+                      "referenceObjectTypeExternalId": "cmdb-vpc",
+                      "minimumCardinality": 0,
+                      "maximumCardinality": -1,
+                      "unique": false
+                    }
+                  ]
+                },
+                {
+                  "externalId": "cmdb-mailout",
+                  "name": "Mailout",
+                  "description": "",
+                  "inheritance": true
+                },
+                {
+                  "externalId": "cmdb-sftp",
+                  "name": "SFTP",
+                  "description": "Secure File Transfer Protocol",
+                  "inheritance": true,
+                  "attributes": [
+                    {
+                      "externalId": "sftp-load-balancer",
+                      "name": "Load Balancer",
+                      "description": "",
+                      "type": "referenced_object",
+                      "label": false,
+                      "referenceObjectTypeName": "Load Balancer",
+                      "referenceObjectTypeExternalId": "cmdb-load-balancer",
+                      "minimumCardinality": 0,
+                      "maximumCardinality": -1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "sftp-firewall",
+                      "name": "Firewall",
+                      "description": "",
+                      "type": "referenced_object",
+                      "label": false,
+                      "referenceObjectTypeName": "Firewall",
+                      "referenceObjectTypeExternalId": "cmdb-firewall",
+                      "minimumCardinality": 0,
+                      "maximumCardinality": -1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "sftp-vpc",
+                      "name": "VPC",
+                      "description": "",
+                      "type": "referenced_object",
+                      "label": false,
+                      "referenceObjectTypeName": "VPC",
+                      "referenceObjectTypeExternalId": "cmdb-vpc",
+                      "minimumCardinality": 0,
+                      "maximumCardinality": -1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "sftp-replication",
+                      "name": "Replication",
+                      "description": "",
+                      "type": "boolean",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "externalId": "cmdb-shared-entities",
+          "name": "Shared Entities",
+          "description": "",
+          "inheritance": false,
+          "attributes": [
+            {
+              "externalId": "shared-entities-key",
+              "name": "Key",
+              "description": "",
+              "type": "text",
+              "label": false,
+              "minimumCardinality": 1,
+              "maximumCardinality": 1,
+              "unique": false
+            },
+            {
+              "externalId": "shared-entities-name",
+              "name": "Name",
+              "description": "The name of the object",
+              "type": "text",
+              "label": true,
+              "minimumCardinality": 1,
+              "maximumCardinality": 1,
+              "unique": false
+            }
+          ],
+          "children": [
+            {
+              "externalId": "cmdb-policies",
+              "name": "Policies",
+              "description": "",
+              "inheritance": false,
+              "attributes": [
+                {
+                  "externalId": "policies-key",
+                  "name": "Key",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "policies-name",
+                  "name": "Name",
+                  "description": "The name of the object",
+                  "type": "text",
+                  "label": true,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                }
+              ]
+            },
+            {
+              "externalId": "cmdb-asset-type",
+              "name": "Asset Type",
+              "description": "",
+              "inheritance": false,
+              "attributes": [
+                {
+                  "externalId": "asset-type-key",
+                  "name": "Key",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "asset-type-name",
+                  "name": "Name",
+                  "description": "The name of the object",
+                  "type": "text",
+                  "label": true,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                }
+              ]
+            },
+            {
+              "externalId": "cmdb-priorities",
+              "name": "Priorities",
+              "description": "",
+              "inheritance": false,
+              "attributes": [
+                {
+                  "externalId": "priorities-key",
+                  "name": "Key",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "priorities-name",
+                  "name": "Name",
+                  "description": "The name of the object",
+                  "type": "text",
+                  "label": true,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                }
+              ]
+            },
+            {
+              "externalId": "cmdb-compliance-record",
+              "name": "Compliance Record",
+              "description": "",
+              "inheritance": false,
+              "attributes": [
+                {
+                  "externalId": "compliance-record-key",
+                  "name": "Key",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "compliance-record-name",
+                  "name": "Name",
+                  "description": "The name of the object",
+                  "type": "text",
+                  "label": true,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                }
+              ]
+            },
+            {
+              "externalId": "cmdb-sla",
+              "name": "SLA",
+              "description": "",
+              "inheritance": false,
+              "attributes": [
+                {
+                  "externalId": "sla-key",
+                  "name": "Key",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "sla-name",
+                  "name": "Name",
+                  "description": "The name of the object",
+                  "type": "text",
+                  "label": true,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "sla-response",
+                  "name": "Response",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "sla-resolution",
+                  "name": "Resolution",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "sla-type",
+                  "name": "Type",
+                  "description": "",
+                  "type": "select",
+                  "label": false,
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                }
+              ]
+            },
+            {
+              "externalId": "cmdb-dr-ratings",
+              "name": "DR Ratings",
+              "description": "",
+              "inheritance": false,
+              "attributes": [
+                {
+                  "externalId": "dr-ratings-key",
+                  "name": "Key",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "dr-ratings-name",
+                  "name": "Name",
+                  "description": "The name of the object",
+                  "type": "text",
+                  "label": true,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                }
+              ]
+            },
+            {
+              "externalId": "cmdb-infrastructure-stack",
+              "name": "Infrastructure stack",
+              "description": "",
+              "inheritance": false,
+              "attributes": [
+                {
+                  "externalId": "infrastructure-stack-key",
+                  "name": "Key",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-stack-name",
+                  "name": "Name",
+                  "description": "The name of the object",
+                  "type": "text",
+                  "label": true,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                }
+              ]
+            },
+            {
+              "externalId": "cmdb-environments",
+              "name": "Environments",
+              "description": "",
+              "inheritance": false,
+              "attributes": [
+                {
+                  "externalId": "environments-key",
+                  "name": "Key",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "environments-name",
+                  "name": "Name",
+                  "description": "The name of the object",
+                  "type": "text",
+                  "label": true,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                }
+              ]
+            },
+            {
+              "externalId": "cmdb-colo",
+              "name": "Colo",
+              "description": "Colocations for cloud infra services",
+              "inheritance": false,
+              "attributes": [
+                {
+                  "externalId": "colo-key",
+                  "name": "Key",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "colo-name",
+                  "name": "Name",
+                  "description": "The name of the object",
+                  "type": "text",
+                  "label": true,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                }
+              ]
+            },
+            {
+              "externalId": "cmdb-statuses",
+              "name": "Statuses",
+              "description": "",
+              "inheritance": false,
+              "attributes": [
+                {
+                  "externalId": "statuses-key",
+                  "name": "Key",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "statuses-name",
+                  "name": "Name",
+                  "description": "The name of the object",
+                  "type": "text",
+                  "label": true,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                }
+              ]
+            },
+            {
+              "externalId": "cmdb-disaster-recovery",
+              "name": "Disaster Recovery",
+              "description": "",
+              "inheritance": false,
+              "attributes": [
+                {
+                  "externalId": "disaster-recovery-key",
+                  "name": "Key",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "disaster-recovery-name",
+                  "name": "Name",
+                  "description": "The name of the object",
+                  "type": "text",
+                  "label": true,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "disaster-recovery-description",
+                  "name": "Description",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "disaster-recovery-recovery-plan-document",
+                  "name": "Recovery Plan Document",
+                  "description": "",
+                  "type": "url",
+                  "label": false,
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                }
+              ]
+            },
+            {
+              "externalId": "cmdb-business-classifications",
+              "name": "Business Classifications",
+              "description": "",
+              "inheritance": false,
+              "attributes": [
+                {
+                  "externalId": "business-classifications-key",
+                  "name": "Key",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "business-classifications-name",
+                  "name": "Name",
+                  "description": "The name of the object",
+                  "type": "text",
+                  "label": true,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                }
+              ]
+            },
+            {
+              "externalId": "cmdb-infrastructure-locations",
+              "name": "Infrastructure Locations",
+              "description": "",
+              "inheritance": false,
+              "attributes": [
+                {
+                  "externalId": "infrastructure-locations-key",
+                  "name": "Key",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-locations-name",
+                  "name": "Name",
+                  "description": "The name of the object",
+                  "type": "text",
+                  "label": true,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "infrastructure-locations-environment",
+                  "name": "Environment",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Environments",
+                  "referenceObjectTypeExternalId": "cmdb-environments",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                }
+              ]
+            },
+            {
+              "externalId": "cmdb-dr-type",
+              "name": "DR Type",
+              "description": "",
+              "inheritance": false,
+              "attributes": [
+                {
+                  "externalId": "dr-type-key",
+                  "name": "Key",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "dr-type-name",
+                  "name": "Name",
+                  "description": "The name of the object",
+                  "type": "text",
+                  "label": true,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                }
+              ]
+            },
+            {
+              "externalId": "cmdb-information-classifications",
+              "name": "Information Classifications",
+              "description": "",
+              "inheritance": false,
+              "attributes": [
+                {
+                  "externalId": "information-classifications-key",
+                  "name": "Key",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "information-classifications-name",
+                  "name": "Name",
+                  "description": "The name of the object",
+                  "type": "text",
+                  "label": true,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                }
+              ]
+            },
+            {
+              "externalId": "cmdb-bsh-rating",
+              "name": "BSH Rating",
+              "description": "",
+              "inheritance": false,
+              "attributes": [
+                {
+                  "externalId": "bsh-rating-key",
+                  "name": "Key",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "bsh-rating-name",
+                  "name": "Name",
+                  "description": "The name of the object",
+                  "type": "text",
+                  "label": true,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "externalId": "cmdb-organization",
+          "name": "Organization",
+          "description": "",
+          "inheritance": false,
+          "attributes": [
+            {
+              "externalId": "organization-key",
+              "name": "Key",
+              "description": "",
+              "type": "text",
+              "label": false,
+              "minimumCardinality": 1,
+              "maximumCardinality": 1,
+              "unique": false
+            },
+            {
+              "externalId": "organization-name",
+              "name": "Name",
+              "description": "The name of the object",
+              "type": "text",
+              "label": true,
+              "minimumCardinality": 1,
+              "maximumCardinality": 1,
+              "unique": false
+            }
+          ],
+          "children": [
+            {
+              "externalId": "cmdb-vendor",
+              "name": "Vendor",
+              "description": "",
+              "inheritance": false,
+              "attributes": [
+                {
+                  "externalId": "vendor-key",
+                  "name": "Key",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "vendor-name",
+                  "name": "Name",
+                  "description": "The name of the object",
+                  "type": "text",
+                  "label": true,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "vendor-vendorcontractinfo",
+                  "name": "Vendor_Contract_Info",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Contracts",
+                  "referenceObjectTypeExternalId": "cmdb-contracts",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "vendor-vendorlocation",
+                  "name": "Vendor_Location",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                }
+              ]
+            },
+            {
+              "externalId": "cmdb-legal-entity",
+              "name": "Legal Entity",
+              "description": "",
+              "inheritance": false,
+              "attributes": [
+                {
+                  "externalId": "legal-entity-key",
+                  "name": "Key",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "legal-entity-name",
+                  "name": "Name",
+                  "description": "The name of the object",
+                  "type": "text",
+                  "label": true,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "legal-entity-company",
+                  "name": "Company",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Company",
+                  "referenceObjectTypeExternalId": "cmdb-company",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                }
+              ]
+            },
+            {
+              "externalId": "cmdb-contracts",
+              "name": "Contracts",
+              "description": "",
+              "inheritance": false,
+              "attributes": [
+                {
+                  "externalId": "contracts-key",
+                  "name": "Key",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "contracts-name",
+                  "name": "Name",
+                  "description": "The name of the object",
+                  "type": "text",
+                  "label": true,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "contracts-company",
+                  "name": "Company",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "Company",
+                  "referenceObjectTypeExternalId": "cmdb-company",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                }
+              ]
+            },
+            {
+              "externalId": "cmdb-location",
+              "name": "Location",
+              "description": "",
+              "inheritance": false,
+              "attributes": [
+                {
+                  "externalId": "location-key",
+                  "name": "Key",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "location-name",
+                  "name": "Name",
+                  "description": "The name of the object",
+                  "type": "text",
+                  "label": true,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                }
+              ]
+            },
+            {
+              "externalId": "cmdb-company",
+              "name": "Company",
+              "description": "",
+              "inheritance": false,
+              "attributes": [
+                {
+                  "externalId": "company-name",
+                  "name": "Name",
+                  "description": "The name of the object",
+                  "type": "text",
+                  "label": true,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                }
+              ],
+              "children": [
+                {
+                  "externalId": "cmdb-division",
+                  "name": "Division",
+                  "description": "",
+                  "inheritance": false,
+                  "attributes": [
+                    {
+                      "externalId": "division-name",
+                      "name": "Name",
+                      "description": "The name of the object",
+                      "type": "text",
+                      "label": true,
+                      "minimumCardinality": 1,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    }
+                  ]
+                },
+                {
+                  "externalId": "cmdb-departments",
+                  "name": "Departments",
+                  "description": "",
+                  "inheritance": false,
+                  "attributes": [
+                    {
+                      "externalId": "departments-name",
+                      "name": "Name",
+                      "description": "The name of the object",
+                      "type": "text",
+                      "label": true,
+                      "minimumCardinality": 1,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    }
+                  ]
+                },
+                {
+                  "externalId": "cmdb-cost-centre",
+                  "name": "Cost Centre",
+                  "description": "",
+                  "inheritance": false,
+                  "attributes": [
+                    {
+                      "externalId": "cost-centre-name",
+                      "name": "Name",
+                      "description": "The name of the object",
+                      "type": "text",
+                      "label": true,
+                      "minimumCardinality": 1,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "cost-centre-owner",
+                      "name": "Owner",
+                      "description": "",
+                      "type": "referenced_object",
+                      "label": false,
+                      "referenceObjectTypeName": "Users",
+                      "referenceObjectTypeExternalId": "cmdb-users",
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "externalId": "cmdb-people",
+              "name": "People",
+              "description": "",
+              "inheritance": false,
+              "attributes": [
+                {
+                  "externalId": "people-key",
+                  "name": "Key",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "people-name",
+                  "name": "Name",
+                  "description": "The name of the object",
+                  "type": "text",
+                  "label": true,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                }
+              ],
+              "children": [
+                {
+                  "externalId": "cmdb-users",
+                  "name": "Users",
+                  "description": "",
+                  "inheritance": true,
+                  "attributes": [
+                    {
+                      "externalId": "users-key",
+                      "name": "Key",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 1,
+                      "maximumCardinality": 1,
+                      "unique": true
+                    },
+                    {
+                      "externalId": "users-object-id",
+                      "name": "Object ID",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 1,
+                      "maximumCardinality": 1,
+                      "unique": true
+                    },
+                    {
+                      "externalId": "users-given-name",
+                      "name": "Given Name",
+                      "description": "",
+                      "type": "text",
+                      "label": true,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "users-email-address",
+                      "name": "E-mail Address",
+                      "description": "",
+                      "type": "email",
+                      "label": true,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "users-user-principal-name",
+                      "name": "User Principal Name",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "users-user-type",
+                      "name": "User Type",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "users-last-password-change-date",
+                      "name": "Last Password Change Date",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "users-job-title",
+                      "name": "Job Title",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "users-groups",
+                      "name": "Groups",
+                      "description": "",
+                      "type": "referenced_object",
+                      "label": false,
+                      "referenceObjectTypeName": "Groups",
+                      "referenceObjectTypeExternalId": "cmdb-groups",
+                      "minimumCardinality": 0,
+                      "maximumCardinality": -1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "users-department",
+                      "name": "Department",
+                      "description": "",
+                      "type": "referenced_object",
+                      "label": false,
+                      "referenceObjectTypeName": "Departments",
+                      "referenceObjectTypeExternalId": "cmdb-departments",
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "users-division",
+                      "name": "Division",
+                      "description": "",
+                      "type": "referenced_object",
+                      "label": false,
+                      "referenceObjectTypeName": "Division",
+                      "referenceObjectTypeExternalId": "cmdb-division",
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "users-cost-center",
+                      "name": "Cost Center",
+                      "description": "",
+                      "type": "referenced_object",
+                      "label": false,
+                      "referenceObjectTypeName": "Cost Centre",
+                      "referenceObjectTypeExternalId": "cmdb-cost-centre",
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "users-employee-id",
+                      "name": "Employee ID",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "users-employee-type",
+                      "name": "Employee Type",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "users-employee-hire-date",
+                      "name": "Employee Hire Date",
+                      "description": "",
+                      "type": "date",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "users-status",
+                      "name": "Status",
+                      "description": "",
+                      "type": "status",
+                      "label": false,
+                      "typeValues": [
+                        "Active",
+                        "Suspended",
+                        "Terminated"
+                      ],
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "users-manager",
+                      "name": "Manager",
+                      "description": "",
+                      "type": "referenced_object",
+                      "label": false,
+                      "referenceObjectTypeName": "Users",
+                      "referenceObjectTypeExternalId": "cmdb-users",
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "users-surname",
+                      "name": "Surname",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "users-mobile-phone",
+                      "name": "Mobile Phone",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "users-office-location",
+                      "name": "Office Location",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "users-street-address",
+                      "name": "Street Address",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "users-city",
+                      "name": "City",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "users-state",
+                      "name": "State",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "users-postal-code",
+                      "name": "Postal Code",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "users-country",
+                      "name": "Country",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "users-company",
+                      "name": "Company",
+                      "description": "",
+                      "type": "referenced_object",
+                      "label": false,
+                      "referenceObjectTypeName": "Company",
+                      "referenceObjectTypeExternalId": "cmdb-company",
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "users-preferred-language",
+                      "name": "Preferred Language",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "users-usage-location",
+                      "name": "Usage Location",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "users-on-premises-dn",
+                      "name": "On-Prem Distinguished Name",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "users-sam-account-name",
+                      "name": "SAM Account Name",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    }
+                  ]
+                },
+                {
+                  "externalId": "cmdb-service-accounts",
+                  "name": "Service Accounts",
+                  "description": "",
+                  "inheritance": true,
+                  "attributes": [
+                    {
+                      "externalId": "service-accounts-account-id",
+                      "name": "Account ID",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "service-accounts-owners",
+                      "name": "Owners",
+                      "description": "",
+                      "type": "referenced_object",
+                      "label": false,
+                      "referenceObjectTypeName": "Users",
+                      "referenceObjectTypeExternalId": "cmdb-users",
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "service-accounts-email-address",
+                      "name": "Email Address",
+                      "description": "",
+                      "type": "email",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "service-accounts-cost-centre",
+                      "name": "Cost Centre",
+                      "description": "",
+                      "type": "referenced_object",
+                      "label": false,
+                      "referenceObjectTypeName": "Cost Centre",
+                      "referenceObjectTypeExternalId": "cmdb-cost-centre",
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    }
+                  ]
+                },
+                {
+                  "externalId": "cmdb-groups",
+                  "name": "Groups",
+                  "description": "",
+                  "inheritance": false,
+                  "attributes": [
+                    {
+                      "externalId": "groups-name",
+                      "name": "Group name",
+                      "description": "",
+                      "type": "text",
+                      "label": true,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "groups-classification",
+                      "name": "Classification",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "groups-created-at",
+                      "name": "Created at",
+                      "description": "",
+                      "type": "date_time",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "groups-deleted-at",
+                      "name": "Deleted at",
+                      "description": "",
+                      "type": "date_time",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "groups-description",
+                      "name": "Description",
+                      "description": "",
+                      "type": "textarea",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "groups-groupid",
+                      "name": "GroupID",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "groups-email-address",
+                      "name": "E-mail Address",
+                      "description": "",
+                      "type": "email",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "groups-group-type",
+                      "name": "Group Type",
+                      "description": "",
+                      "type": "text",
+                      "label": false,
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 1,
+                      "unique": false
+                    },
+                    {
+                      "externalId": "groups-owners",
+                      "name": "Owners",
+                      "description": "",
+                      "type": "referenced_object",
+                      "label": false,
+                      "referenceObjectTypeName": "Users",
+                      "referenceObjectTypeExternalId": "cmdb-users",
+                      "minimumCardinality": 0,
+                      "maximumCardinality": 100,
+                      "unique": false
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "externalId": "cmdb-technology-rating-bsh",
+              "name": "Technology Rating (B|S|H)",
+              "description": "",
+              "inheritance": false,
+              "attributes": [
+                {
+                  "externalId": "technology-rating-bsh-key",
+                  "name": "Key",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "technology-rating-bsh-name",
+                  "name": "Name",
+                  "description": "The name of the object",
+                  "type": "text",
+                  "label": true,
+                  "minimumCardinality": 1,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "technology-rating-bsh-version",
+                  "name": "Version",
+                  "description": "",
+                  "type": "text",
+                  "label": false,
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                },
+                {
+                  "externalId": "technology-rating-bsh-rating",
+                  "name": "Rating",
+                  "description": "",
+                  "type": "referenced_object",
+                  "label": false,
+                  "referenceObjectTypeName": "BSH Rating",
+                  "referenceObjectTypeExternalId": "cmdb-bsh-rating",
+                  "minimumCardinality": 0,
+                  "maximumCardinality": 1,
+                  "unique": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "mapping": {
+    "objectTypeMappings": [
+      {
+        "objectTypeExternalId": "cmdb-users",
+        "objectTypeName": "Users",
+        "selector": "users",
+        "description": "Users",
+        "unknownValues": "ADD",
+        "attributesMapping": [
+          {
+            "attributeExternalId": "users-object-id",
+            "attributeName": "Object ID",
+            "attributeLocators": [
+              "userId"
+            ],
+            "externalIdPart": true
+          },
+          {
+            "attributeExternalId": "users-given-name",
+            "attributeName": "Given Name",
+            "attributeLocators": [
+              "givenName"
+            ]
+          },
+          {
+            "attributeExternalId": "users-email-address",
+            "attributeName": "E-mail Address",
+            "attributeLocators": [
+              "userEmail"
+            ]
+          },
+          {
+            "attributeExternalId": "users-user-principal-name",
+            "attributeName": "User Principal Name",
+            "attributeLocators": [
+              "userPrincipalName"
+            ]
+          },
+          {
+            "attributeExternalId": "users-user-type",
+            "attributeName": "User Type",
+            "attributeLocators": [
+              "userType"
+            ]
+          },
+          {
+            "attributeExternalId": "users-job-title",
+            "attributeName": "Job Title",
+            "attributeLocators": [
+              "jobTitle"
+            ]
+          },
+          {
+            "attributeExternalId": "users-groups",
+            "attributeName": "Groups",
+            "attributeLocators": [
+              "groups.groupId"
+            ],
+            "objectMappingIQL": "\"GroupID\" IN (${groups.groupId${0}})"
+          },
+          {
+            "attributeExternalId": "users-department",
+            "attributeName": "Department",
+            "attributeLocators": [
+              "department"
+            ],
+            "objectMappingIQL": "\"Name\" = ${department}"
+          },
+          {
+            "attributeExternalId": "users-division",
+            "attributeName": "Division",
+            "attributeLocators": [
+              "division"
+            ],
+            "objectMappingIQL": "\"Name\" = ${division}"
+          },
+          {
+            "attributeExternalId": "users-cost-center",
+            "attributeName": "Cost Center",
+            "attributeLocators": [
+              "costCenter"
+            ],
+            "objectMappingIQL": "\"Name\" = ${costCenter}"
+          },
+          {
+            "attributeExternalId": "users-employee-id",
+            "attributeName": "Employee ID",
+            "attributeLocators": [
+              "employeeId"
+            ]
+          },
+          {
+            "attributeExternalId": "users-employee-type",
+            "attributeName": "Employee Type",
+            "attributeLocators": [
+              "employeeType"
+            ]
+          },
+          {
+            "attributeExternalId": "users-employee-hire-date",
+            "attributeName": "Employee Hire Date",
+            "attributeLocators": [
+              "createdDateTime"
+            ]
+          },
+          {
+            "attributeExternalId": "users-status",
+            "attributeName": "Status",
+            "attributeLocators": [
+              "accountEnabled"
+            ],
+            "valueMapping": {
+              "true": "Active",
+              "false": "Suspended"
+            }
+          },
+          {
+            "attributeExternalId": "users-manager",
+            "attributeName": "Manager",
+            "attributeLocators": [
+              "manager.managerId"
+            ],
+            "objectMappingIQL": "\"Object ID\" = ${manager.managerId}"
+          },
+          {
+            "attributeExternalId": "users-surname",
+            "attributeName": "Surname",
+            "attributeLocators": [
+              "surname"
+            ]
+          },
+          {
+            "attributeExternalId": "users-mobile-phone",
+            "attributeName": "Mobile Phone",
+            "attributeLocators": [
+              "mobilePhone"
+            ]
+          },
+          {
+            "attributeExternalId": "users-office-location",
+            "attributeName": "Office Location",
+            "attributeLocators": [
+              "officeLocation"
+            ]
+          },
+          {
+            "attributeExternalId": "users-street-address",
+            "attributeName": "Street Address",
+            "attributeLocators": [
+              "streetAddress"
+            ]
+          },
+          {
+            "attributeExternalId": "users-city",
+            "attributeName": "City",
+            "attributeLocators": [
+              "city"
+            ]
+          },
+          {
+            "attributeExternalId": "users-state",
+            "attributeName": "State",
+            "attributeLocators": [
+              "state"
+            ]
+          },
+          {
+            "attributeExternalId": "users-postal-code",
+            "attributeName": "Postal Code",
+            "attributeLocators": [
+              "postalCode"
+            ]
+          },
+          {
+            "attributeExternalId": "users-country",
+            "attributeName": "Country",
+            "attributeLocators": [
+              "country"
+            ]
+          },
+          {
+            "attributeExternalId": "users-company",
+            "attributeName": "Company",
+            "attributeLocators": [
+              "companyName"
+            ],
+            "objectMappingIQL": "\"Name\" = ${companyName}"
+          },
+          {
+            "attributeExternalId": "users-preferred-language",
+            "attributeName": "Preferred Language",
+            "attributeLocators": [
+              "preferredLanguage"
+            ]
+          },
+          {
+            "attributeExternalId": "users-usage-location",
+            "attributeName": "Usage Location",
+            "attributeLocators": [
+              "usageLocation"
+            ]
+          },
+          {
+            "attributeExternalId": "users-on-premises-dn",
+            "attributeName": "On-Prem Distinguished Name",
+            "attributeLocators": [
+              "onPremisesDistinguishedName"
+            ]
+          },
+          {
+            "attributeExternalId": "users-sam-account-name",
+            "attributeName": "SAM Account Name",
+            "attributeLocators": [
+              "onPremisesSamAccountName"
+            ]
+          }
+        ]
+      },
+      {
+        "objectTypeExternalId": "cmdb-groups",
+        "objectTypeName": "Groups",
+        "selector": "groups",
+        "description": "Groups",
+        "unknownValues": "ADD",
+        "attributesMapping": [
+          {
+            "attributeExternalId": "groups-groupid",
+            "attributeName": "GroupID",
+            "attributeLocators": [
+              "groupId"
+            ],
+            "externalIdPart": true
+          },
+          {
+            "attributeExternalId": "groups-description",
+            "attributeName": "Description",
+            "attributeLocators": [
+              "description"
+            ]
+          },
+          {
+            "attributeExternalId": "groups-name",
+            "attributeName": "Group Name",
+            "attributeLocators": [
+              "groupName"
+            ]
+          },
+          {
+            "attributeExternalId": "groups-classification",
+            "attributeName": "Classification",
+            "attributeLocators": [
+              "classification"
+            ]
+          },
+          {
+            "attributeExternalId": "groups-created-at",
+            "attributeName": "Created at",
+            "attributeLocators": [
+              "createdDateTime"
+            ]
+          },
+          {
+            "attributeExternalId": "groups-email-address",
+            "attributeName": "E-mail Address",
+            "attributeLocators": [
+              "mail"
+            ]
+          },
+          {
+            "attributeExternalId": "groups-group-type",
+            "attributeName": "Group Type",
+            "attributeLocators": [
+              "groupTypes"
+            ]
+          },
+          {
+            "attributeExternalId": "groups-owners",
+            "attributeName": "Owners",
+            "attributeLocators": [
+              "owners.ownerId"
+            ],
+            "objectMappingIQL": "\"Object ID\" IN (${owners.ownerId${0}})"
+          }
+        ]
+      },
+      {
+        "objectTypeExternalId": "cmdb-company",
+        "objectTypeName": "Company",
+        "selector": "users",
+        "description": "Company",
+        "unknownValues": "ADD",
+        "attributesMapping": [
+          {
+            "attributeExternalId": "company-name",
+            "attributeName": "Name",
+            "attributeLocators": [
+              "companyName"
+            ],
+            "externalIdPart": true,
+            "objectMappingIQL": "\"Name\" = ${companyName}"
+          }
+        ]
+      },
+      {
+        "objectTypeExternalId": "cmdb-departments",
+        "objectTypeName": "Departments",
+        "selector": "users",
+        "description": "Departments",
+        "unknownValues": "ADD",
+        "attributesMapping": [
+          {
+            "attributeExternalId": "departments-name",
+            "attributeName": "Name",
+            "attributeLocators": [
+              "department"
+            ],
+            "externalIdPart": true,
+            "objectMappingIQL": "\"Name\" = ${department}"
+          }
+        ]
+      },
+      {
+        "objectTypeExternalId": "cmdb-division",
+        "objectTypeName": "Division",
+        "selector": "users",
+        "description": "Division",
+        "unknownValues": "ADD",
+        "attributesMapping": [
+          {
+            "attributeExternalId": "division-name",
+            "attributeName": "Name",
+            "attributeLocators": [
+              "division"
+            ],
+            "externalIdPart": true,
+            "objectMappingIQL": "\"Name\" = ${division}"
+          }
+        ]
+      },
+      {
+        "objectTypeExternalId": "cmdb-cost-centre",
+        "objectTypeName": "Cost Centre",
+        "selector": "users",
+        "description": "Cost Centre",
+        "unknownValues": "ADD",
+        "attributesMapping": [
+          {
+            "attributeExternalId": "cost-centre-name",
+            "attributeName": "Name",
+            "attributeLocators": [
+              "costCenter"
+            ],
+            "externalIdPart": true,
+            "objectMappingIQL": "\"Name\" = ${costCenter}"
+          }
+        ]
+      },
+      {
+        "objectTypeExternalId": "cmdb-operating-system",
+        "objectTypeName": "Operating System",
+        "selector": "devices",
+        "description": "Operating System",
+        "unknownValues": "ADD",
+        "attributesMapping": [
+          {
+            "attributeExternalId": "operating-system-name",
+            "attributeName": "Name",
+            "attributeLocators": [
+              "osFriendlyName"
+            ]
+          },
+          {
+            "attributeExternalId": "operating-system-version",
+            "attributeName": "Version",
+            "attributeLocators": [
+              "osVersionKey"
+            ],
+            "externalIdPart": true
+          },
+          {
+            "attributeExternalId": "operating-system-platform",
+            "attributeName": "Platform",
+            "attributeLocators": [
+              "osPlatform"
+            ]
+          },
+          {
+            "attributeExternalId": "operating-system-major-version",
+            "attributeName": "Major Version",
+            "attributeLocators": [
+              "osMajorVersion"
+            ]
+          },
+          {
+            "attributeExternalId": "operating-system-feature-update",
+            "attributeName": "Feature Update",
+            "attributeLocators": [
+              "osFeatureUpdate"
+            ]
+          }
+        ]
+      },
+      {
+        "objectTypeExternalId": "cmdb-asset-type",
+        "objectTypeName": "Asset Type",
+        "selector": "devices",
+        "description": "Asset Type",
+        "unknownValues": "ADD",
+        "attributesMapping": [
+          {
+            "attributeExternalId": "asset-type-name",
+            "attributeName": "Name",
+            "attributeLocators": [
+              "enrollmentType"
+            ],
+            "externalIdPart": true
+          }
+        ]
+      },
+      {
+        "objectTypeExternalId": "cmdb-physical-device",
+        "objectTypeName": "Physical Device",
+        "selector": "devices",
+        "description": "Physical Device",
+        "unknownValues": "ADD",
+        "attributesMapping": [
+          {
+            "attributeExternalId": "physical-device-id",
+            "attributeName": "Device ID",
+            "attributeLocators": [
+              "deviceId"
+            ]
+          },
+          {
+            "attributeExternalId": "physical-device-display-name",
+            "attributeName": "Display Name",
+            "attributeLocators": [
+              "displayName"
+            ],
+            "externalIdPart": true
+          },
+          {
+            "attributeExternalId": "physical-device-manufacturer",
+            "attributeName": "Manufacturer",
+            "attributeLocators": [
+              "manufacturer"
+            ]
+          },
+          {
+            "attributeExternalId": "physical-device-model",
+            "attributeName": "Model",
+            "attributeLocators": [
+              "model"
+            ]
+          },
+          {
+            "attributeExternalId": "physical-device-os-version",
+            "attributeName": "OS Version",
+            "attributeLocators": [
+              "operatingSystemVersion"
+            ]
+          },
+          {
+            "attributeExternalId": "physical-device-management-type",
+            "attributeName": "Management Type",
+            "attributeLocators": [
+              "managementType"
+            ]
+          },
+          {
+            "attributeExternalId": "physical-device-enrollment-type",
+            "attributeName": "Enrollment Type",
+            "attributeLocators": [
+              "enrollmentType"
+            ]
+          },
+          {
+            "attributeExternalId": "physical-device-enrollment-profile",
+            "attributeName": "Enrollment Profile",
+            "attributeLocators": [
+              "enrollmentProfileName"
+            ]
+          },
+          {
+            "attributeExternalId": "physical-device-is-managed",
+            "attributeName": "Is Managed",
+            "attributeLocators": [
+              "isManaged"
+            ]
+          },
+          {
+            "attributeExternalId": "physical-device-is-compliant",
+            "attributeName": "Is Compliant",
+            "attributeLocators": [
+              "isCompliant"
+            ]
+          },
+          {
+            "attributeExternalId": "physical-device-account-enabled",
+            "attributeName": "Account Enabled",
+            "attributeLocators": [
+              "accountEnabled"
+            ]
+          },
+          {
+            "attributeExternalId": "physical-device-operating-system-ref",
+            "attributeName": "Operating System",
+            "attributeLocators": [
+              "osVersionKey"
+            ],
+            "objectMappingIQL": "\"Version\" = ${osVersionKey}"
+          },
+          {
+            "attributeExternalId": "physical-device-asset-type-ref",
+            "attributeName": "Asset Type Reference",
+            "attributeLocators": [
+              "enrollmentType"
+            ],
+            "objectMappingIQL": "\"Name\" = ${enrollmentType}"
+          },
+          {
+            "attributeExternalId": "physical-device-registered-owners",
+            "attributeName": "Registered Owners",
+            "attributeLocators": [
+              "registeredOwners.ownerId"
+            ],
+            "objectMappingIQL": "\"Object ID\" IN (${registeredOwners.ownerId${0}})"
+          },
+          {
+            "attributeExternalId": "physical-device-registered-users",
+            "attributeName": "Registered Users",
+            "attributeLocators": [
+              "registeredUsers.userId"
+            ],
+            "objectMappingIQL": "\"Object ID\" IN (${registeredUsers.userId${0}})"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pipeline • JSM Assets Schema Designer documentation</title>
+  <meta name="description" content="GitHub Pages pipeline documentation for JSM Assets Schema Designer docs.">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <header class="page-header">
+    <div class="shell topbar">
+      <div class="brand">
+        <div class="brand-badge">
+          <img src="assets/logo_3.png" alt="JASD logo">
+        </div>
+        <div class="brand-copy">
+          <small>Product documentation</small>
+          <strong>Assets Schema Designer</strong>
+        </div>
+      </div>
+      <div class="top-links">
+        <button class="menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="site-nav">Menu</button>
+        <nav id="site-nav" class="nav-links" data-menu>
+          <a class="nav-chip" href="index.html">Overview</a>
+          <a class="nav-chip" href="features.html">Features</a>
+          <a class="nav-chip" href="architecture.html">Architecture</a>
+          <a class="nav-chip" href="api.html">API</a>
+          <a class="nav-chip" aria-current="page" href="ops.html">Pipeline</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="shell content-stack">
+      <section class="panel reveal">
+        <span class="eyebrow">Deployment</span>
+        <h1 style="margin:10px 0 14px;font-size:2.4rem;line-height:1.08;letter-spacing:-0.02em;">GitHub Pages pipeline</h1>
+        <p>
+          The docs site is a standalone static artifact published directly from the <code>site/</code> folder.
+          This keeps the publishing path independent from the Next.js runtime build.
+        </p>
+      </section>
+
+      <section class="workflow-grid">
+        <article class="workflow-card reveal">
+          <span class="eyebrow">Source</span>
+          <strong><code>site/</code></strong>
+          <p>Contains HTML entry points, shared CSS, shared JS, screenshots, diagrams, and a <code>.nojekyll</code> marker.</p>
+        </article>
+        <article class="workflow-card reveal">
+          <span class="eyebrow">Workflow</span>
+          <strong><code>.github/workflows/docs-pages.yml</code></strong>
+          <p>Configures Pages, validates the docs entry point, uploads the static artifact, and deploys to the GitHub Pages environment.</p>
+        </article>
+      </section>
+
+      <section class="panel reveal">
+        <span class="eyebrow">Flow</span>
+        <h2>Deployment sequence</h2>
+        <div class="mermaid-shell">
+          <pre class="mermaid">flowchart LR
+  A[Push to main or master] --> B[GitHub Actions workflow starts]
+  B --> C[Checkout repository]
+  C --> D[Configure Pages]
+  D --> E[Validate site/index.html]
+  E --> F[Upload Pages artifact from site/]
+  F --> G[Deploy to github-pages environment]
+  H[workflow_dispatch] --> B
+          </pre>
+        </div>
+      </section>
+
+      <section class="panel reveal">
+        <span class="eyebrow">Workflow detail</span>
+        <h2>What gets triggered</h2>
+        <ul>
+          <li>Pushes to <code>main</code> or <code>master</code> when files in <code>site/**</code> or the workflow file change.</li>
+          <li>Manual runs via <code>workflow_dispatch</code>.</li>
+          <li>Pages deployment permissions: <code>contents: read</code>, <code>pages: write</code>, <code>id-token: write</code>.</li>
+          <li>Concurrency control prevents overlapping deployments.</li>
+        </ul>
+      </section>
+
+      <section class="panel reveal">
+        <span class="eyebrow">Local review</span>
+        <h2>Previewing docs locally</h2>
+        <p>Use the package script added for docs preview:</p>
+        <pre><code>npm run docs:serve</code></pre>
+        <p>The script serves the static site from <code>site/</code> so design and copy changes can be reviewed before push.</p>
+      </section>
+
+      <section class="panel reveal">
+        <span class="eyebrow">Repository setup</span>
+        <h2>Required GitHub setting</h2>
+        <div class="callout">
+          <strong>Enable Pages from Actions</strong>
+          <p>In the repository Pages settings, choose deployment from GitHub Actions. Without that, the workflow can complete but the site will not be published.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="shell">
+      <div class="footer-card panel">
+        <div>
+          <span class="eyebrow">Back to docs</span>
+          <p>Return to the overview or feature pages for user-facing documentation.</p>
+        </div>
+        <div class="hero-actions">
+          <a class="button button-secondary" href="index.html">Overview</a>
+          <a class="button button-secondary" href="features.html">Features</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    window.mermaid = mermaid;
+  </script>
+  <script src="assets/app.js"></script>
+</body>
+</html>

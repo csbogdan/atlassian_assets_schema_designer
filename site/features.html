@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Features • JSM Assets Schema Designer documentation</title>
+  <meta name="description" content="Detailed feature documentation for JSM Assets Schema Designer.">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <header class="page-header">
+    <div class="shell topbar">
+      <div class="brand">
+        <div class="brand-badge">
+          <img src="assets/logo_3.png" alt="JASD logo">
+        </div>
+        <div class="brand-copy">
+          <small>Product documentation</small>
+          <strong>Assets Schema Designer</strong>
+        </div>
+      </div>
+      <div class="top-links">
+        <button class="menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="site-nav">Menu</button>
+        <nav id="site-nav" class="nav-links" data-menu>
+          <a class="nav-chip" href="index.html">Overview</a>
+          <a class="nav-chip" aria-current="page" href="features.html">Features</a>
+          <a class="nav-chip" href="architecture.html">Architecture</a>
+          <a class="nav-chip" href="api.html">API</a>
+          <a class="nav-chip" href="ops.html">Pipeline</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="shell doc-grid">
+      <aside class="sidebar panel reveal">
+        <h3>Feature guide</h3>
+        <nav>
+          <a href="#getting-started" data-nav-link>Getting started</a>
+          <a href="#projects" data-nav-link>Projects</a>
+          <a href="#overview" data-nav-link>Overview dashboard</a>
+          <a href="#schema-explorer" data-nav-link>Schema Explorer</a>
+          <a href="#mapping-explorer" data-nav-link>Mapping Explorer</a>
+          <a href="#validation" data-nav-link>Validation</a>
+          <a href="#generator" data-nav-link>Mapping Generator</a>
+          <a href="#diff" data-nav-link>Diff and changelog</a>
+          <a href="#tools" data-nav-link>Tools</a>
+          <a href="#raw-json" data-nav-link>Raw JSON Editor</a>
+          <a href="#settings" data-nav-link>Settings</a>
+          <a href="#search" data-nav-link>Search and shortcuts</a>
+        </nav>
+      </aside>
+
+      <div class="content-stack">
+        <section class="panel reveal" id="getting-started" data-section>
+          <span class="eyebrow">User guide</span>
+          <h1 style="margin:10px 0 14px;font-size:2.3rem;line-height:1.08;letter-spacing:-0.02em;">Detailed feature documentation</h1>
+          <p>
+            This page documents the implemented product surface in detail. It is intended to be useful for
+            onboarding, release notes, QA validation, and contributor understanding of how the application
+            behaves from the user’s perspective.
+          </p>
+          <h3>What the application manages</h3>
+          <ul>
+            <li>A combined <code>AssetsImportDocument</code> containing schema and mapping data.</li>
+            <li>Disk-backed projects with versions, baselines, activity, environments, and staged deletions.</li>
+            <li>Atlassian-facing operational workflows for import, push, compare, export, cleanup, and icon sync.</li>
+          </ul>
+          <h3>Typical workflow</h3>
+          <ol>
+            <li>Create or load a project.</li>
+            <li>Import from JSM or load raw JSON.</li>
+            <li>Inspect object types and mappings visually.</li>
+            <li>Resolve diagnostics and save a baseline.</li>
+            <li>Make edits, compare against baseline or remote, then push or export.</li>
+          </ol>
+        </section>
+
+        <section class="panel reveal" id="projects" data-section>
+          <span class="eyebrow">Workspace layer</span>
+          <h2>Projects</h2>
+          <p>
+            Projects are the unit of persistence and collaboration. A project stores the working document plus all
+            supporting state required for day-to-day schema operations.
+          </p>
+          <h3>What a project stores</h3>
+          <ul>
+            <li>Current <code>AssetsImportDocument</code>.</li>
+            <li>Version snapshots and baseline snapshots.</li>
+            <li>Activity log entries.</li>
+            <li>Validation rule configuration.</li>
+            <li>Atlassian connection settings and named environments.</li>
+            <li>Sharing metadata and staged deletions.</li>
+          </ul>
+          <h3>Creating and opening projects</h3>
+          <ul>
+            <li>Projects can be created from scratch from the project workspace.</li>
+            <li>Tools can also create a new project directly from an imported remote schema.</li>
+            <li>The last active disk project can be restored automatically on refresh.</li>
+          </ul>
+          <h3>Save, versions, and restore</h3>
+          <ul>
+            <li>Manual save writes the current project payload to the server.</li>
+            <li>Auto-save runs after a period of inactivity when the project is dirty.</li>
+            <li>Versions are restore points; baselines are comparison anchors for diff.</li>
+            <li>Undo and redo are local document history operations and separate from saved versions.</li>
+          </ul>
+          <h3>Sharing and visibility</h3>
+          <ul>
+            <li>Projects are private by default.</li>
+            <li>Owners can mark a project Global or share it with specific users by email.</li>
+            <li>Owners can revoke Global access or revoke individual users.</li>
+            <li>Badges communicate <em>Global</em>, <em>Shared with me</em>, and <em>Shared with N</em>.</li>
+          </ul>
+          <h3>Status and export</h3>
+          <ul>
+            <li>Projects can be open, closed, or archived.</li>
+            <li>Project export returns the effective document, not the raw staged state.</li>
+          </ul>
+          <div class="callout">
+            <strong>Important implementation note</strong>
+            <p>Current permission logic allows explicitly shared users to save changes. Owners still retain admin-only actions such as deleting and managing sharing.</p>
+          </div>
+        </section>
+
+        <section class="panel reveal" id="overview" data-section>
+          <span class="eyebrow">Dashboard view</span>
+          <h2>Overview dashboard</h2>
+          <p>
+            The Overview view is the landing page for an open project. It summarizes current document health and
+            acts as a quick-launch surface for the main editing areas.
+          </p>
+          <ul>
+            <li>Top counters for object types, mappings, errors, and warnings.</li>
+            <li>Quick actions to jump to schema, mapping, validation, and raw JSON.</li>
+            <li>Embedded Stats Dashboard with attribute distribution, inheritance depth, and mapping coverage.</li>
+          </ul>
+          <article class="shot-card" style="margin-top:16px;">
+            <img src="assets/screens/pic_1.png" alt="Overview dashboard">
+            <div class="shot-copy">
+              <strong>Overview dashboard</strong>
+              <span>Entry point for project health and navigation into detailed editing surfaces.</span>
+            </div>
+          </article>
+        </section>
+
+        <section class="panel reveal" id="schema-explorer" data-section>
+          <span class="eyebrow">Schema workbench</span>
+          <h2>Schema Explorer</h2>
+          <p>
+            The Schema Explorer is the main visual editing and navigation surface for the object schema.
+            It combines hierarchy browsing, detailed editing, graph navigation, staged deletions, and supporting utilities.
+          </p>
+          <h3>Tree view</h3>
+          <ul>
+            <li>Shows the object type hierarchy with nested children.</li>
+            <li>Supports collapse and expand across the tree.</li>
+            <li>Shows object type state such as mapping presence, diagnostics, and staging.</li>
+            <li>Selected object types sync with focused JSON locations when the raw editor or diagnostics point at them.</li>
+          </ul>
+          <h3>Detail panel</h3>
+          <ul>
+            <li>Edit object type name and metadata.</li>
+            <li>Inspect lineage and parent information.</li>
+            <li>Add, edit, duplicate, remove, and move attributes.</li>
+            <li>Stage a type for deletion or restore it if already staged.</li>
+            <li>Clone an object type or generate a mapping for it when missing.</li>
+          </ul>
+          <h3>Graph and reference views</h3>
+          <ul>
+            <li>The hierarchy graph visualizes the object type tree as connected nodes and edges, which is useful when nested structure is too dense to reason about in the tree alone.</li>
+            <li>Graph mode is accessed from the Schema view, where users can switch between the standard tree and graph-based exploration.</li>
+            <li>The graph highlights structural relationships rather than raw JSON order, so it is better suited for understanding parent-child topology.</li>
+            <li>A separate reference graph visualizes <code>referenced_object</code> links between types, which helps identify cross-object dependency chains before deployment.</li>
+            <li>An alternate V11 renderer exists for graph rendering tradeoffs and can be useful for larger or more complex schemas.</li>
+          </ul>
+          <h3>When to use graph view</h3>
+          <ul>
+            <li>When the tree becomes too deep or visually noisy to follow inheritance structure comfortably.</li>
+            <li>When reviewing the overall object model with stakeholders who think in relationships rather than JSON hierarchy.</li>
+            <li>When checking whether a subtree reorganization has preserved the intended topology.</li>
+          </ul>
+          <h3>Bulk and analysis tools in schema area</h3>
+          <ul>
+            <li>Bulk Add Attributes applies a shared attribute definition to multiple types.</li>
+            <li>Move Attributes supports relocating attributes between object types.</li>
+            <li>Attribute Usage and stats help understand coverage and shape across the schema.</li>
+          </ul>
+          <h3>Staged deletions</h3>
+          <ul>
+            <li>Stage marks a type and all descendants for soft removal.</li>
+            <li>Staged items are excluded from effective validation and export.</li>
+            <li>Footer actions allow restore all or commit staged deletions.</li>
+            <li>Commit permanently rewrites the current document but remains undoable immediately in history.</li>
+          </ul>
+          <article class="shot-card" style="margin-top:16px;">
+            <img src="assets/screens/pic_2.png" alt="Schema Explorer">
+            <div class="shot-copy">
+              <strong>Schema Explorer</strong>
+              <span>Primary surface for object type navigation, editing, staging, and graph-driven understanding.</span>
+            </div>
+          </article>
+          <article class="shot-card" style="margin-top:16px;">
+            <img src="assets/screens/pic_6.png" alt="Schema Graph view">
+            <div class="shot-copy">
+              <strong>Schema Graph view</strong>
+              <span>Hierarchy graph mode for understanding object type topology and large-schema structure more quickly.</span>
+            </div>
+          </article>
+        </section>
+
+        <section class="panel reveal" id="mapping-explorer" data-section>
+          <span class="eyebrow">Mapping workbench</span>
+          <h2>Mapping Explorer</h2>
+          <p>
+            Mapping Explorer is where source data extraction logic is reviewed and edited. It provides both a mapping list
+            and a coverage-oriented lens for completeness analysis.
+          </p>
+          <h3>Mappings tab</h3>
+          <ul>
+            <li>Searches mappings by object type ID, object type name, or selector text.</li>
+            <li>Selects one mapping at a time for detailed inspection and editing.</li>
+            <li>Shows selector, object type info, unknown values behavior, and attribute mapping rows.</li>
+            <li>Allows modifying locators, external ID participation, and reference resolution IQL.</li>
+            <li>Supports deleting the selected mapping.</li>
+          </ul>
+          <h3>Coverage tab</h3>
+          <ul>
+            <li>Orders types by lack of mapping and then by low coverage.</li>
+            <li>Shows mapped versus unmapped attributes per object type.</li>
+            <li>Lets users jump directly into the detail mapping editor from a coverage item.</li>
+          </ul>
+          <h3>Validation-related mapping concepts</h3>
+          <ul>
+            <li>Dead mappings are mappings that point to object types missing from the schema.</li>
+            <li>Unknown attribute references are flagged when attribute mappings target attributes that do not exist.</li>
+            <li>Required unmapped attributes surface in validation and coverage workflows.</li>
+          </ul>
+          <article class="shot-card" style="margin-top:16px;">
+            <img src="assets/screens/pic_11.png" alt="Mapping Explorer">
+            <div class="shot-copy">
+              <strong>Mapping Explorer</strong>
+              <span>Source selector logic, attribute mapping details, and completeness review in one workflow.</span>
+            </div>
+          </article>
+        </section>
+
+        <section class="panel reveal" id="validation" data-section>
+          <span class="eyebrow">Quality and diagnostics</span>
+          <h2>Validation</h2>
+          <p>
+            Validation combines parser feedback, structural feedback, cross-reference integrity, business rule enforcement,
+            and diff-derived findings into a single diagnostics experience.
+          </p>
+          <h3>Validation pipeline</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Stage</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>JSON parse</td>
+                  <td>Rejects malformed JSON before a document can be normalized.</td>
+                </tr>
+                <tr>
+                  <td>Shape</td>
+                  <td>Checks top-level structure against the expected document shape using Zod-backed parsing.</td>
+                </tr>
+                <tr>
+                  <td>Contract</td>
+                  <td>Validates required fields, enums, case-sensitive contract details, and cardinality rules.</td>
+                </tr>
+                <tr>
+                  <td>Cross-reference</td>
+                  <td>Ensures mapping object type and attribute IDs point to real schema definitions.</td>
+                </tr>
+                <tr>
+                  <td>Business rules</td>
+                  <td>Checks duplicates, missing labels, missing mappings, circular refs, inheritance conflicts, and similar quality issues.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <h3>Diagnostic behavior</h3>
+          <ul>
+            <li>Diagnostics include severity, stable code, message, JSON pointer path, optional related paths, and suggestions.</li>
+            <li>Clicking a diagnostic can move the user to the relevant raw JSON location.</li>
+            <li>Rule categories can be toggled in Settings.</li>
+            <li>Some findings can be deferred or safe-autofixed.</li>
+            <li>When a baseline exists, impact and semantic findings can also appear in the validation configuration model.</li>
+          </ul>
+          <article class="shot-card" style="margin-top:16px;">
+            <img src="assets/screens/pic_8.png" alt="Validation view">
+            <div class="shot-copy">
+              <strong>Validation</strong>
+              <span>Layered diagnostics, actionable rule codes, and direct navigation into source data.</span>
+            </div>
+          </article>
+        </section>
+
+        <section class="panel reveal" id="generator" data-section>
+          <span class="eyebrow">Mapping creation</span>
+          <h2>Mapping Generator</h2>
+          <p>
+            The generator helps users create missing object type mappings more quickly by reducing repetitive mapping setup work.
+          </p>
+          <ul>
+            <li>Targets only unmapped object types.</li>
+            <li>Accepts selector input before generation.</li>
+            <li>Can create attribute mapping suggestions heuristically from schema data.</li>
+            <li>Can clone an existing mapping structure to accelerate similar object types.</li>
+            <li>Shows a preview before insertion into the document.</li>
+          </ul>
+        </section>
+
+        <section class="panel reveal" id="diff" data-section>
+          <span class="eyebrow">Change review</span>
+          <h2>Diff and changelog</h2>
+          <p>
+            The Diff area is built for reviewing change impact before deployment. It supports comparing the current working
+            document with saved versions, baselines, and live remote state.
+          </p>
+          <h3>Source selection</h3>
+          <ul>
+            <li>Current working document.</li>
+            <li>Saved versions.</li>
+            <li>Baselines.</li>
+            <li>Remote live document fetched from Atlassian.</li>
+          </ul>
+          <h3>Outputs</h3>
+          <ul>
+            <li>Semantic diff findings such as added or removed object types, attributes, and mappings.</li>
+            <li>Impact analysis for breaking, safe, and informational changes.</li>
+            <li>Changelog narrative grouped by object type and exportable as Markdown.</li>
+            <li>Machine-readable JSON report export.</li>
+          </ul>
+          <h3>Remote compare</h3>
+          <ul>
+            <li>Uses an environment token or manually entered token.</li>
+            <li>Fetches the current live schema and registers it as a comparison source.</li>
+            <li>Useful for detecting drift between local work and production state.</li>
+          </ul>
+          <article class="shot-card" style="margin-top:16px;">
+            <img src="assets/screens/pic_3.png" alt="Diff view">
+            <div class="shot-copy">
+              <strong>Diff and changelog</strong>
+              <span>Compare against versions, baselines, or live remote state before pushing changes.</span>
+            </div>
+          </article>
+        </section>
+
+        <section class="panel reveal" id="tools" data-section>
+          <span class="eyebrow">Operational tooling</span>
+          <h2>Tools</h2>
+          <p>
+            The Tools panel contains the workflows that integrate with Atlassian or perform high-value document utility tasks.
+          </p>
+          <h3>Import from JSM Assets</h3>
+          <ul>
+            <li>Uses a bearer token to discover an import source.</li>
+            <li>Can fetch and load the schema-and-mapping document.</li>
+            <li>Can import into the current project or create a new project from the result.</li>
+          </ul>
+          <h3>Push Mapping</h3>
+          <ul>
+            <li>Supports PUT and PATCH modes.</li>
+            <li>Supports async processing with progress polling and config-status visibility.</li>
+            <li>Used for deploying the current document back to an import source.</li>
+          </ul>
+          <h3>Export Schema</h3>
+          <ul>
+            <li>Fetches a schema definition, including icon information, from Atlassian.</li>
+            <li>Can support analysis or import workflows after export.</li>
+          </ul>
+          <h3>Delete Object Types</h3>
+          <ul>
+            <li>Destructive live cleanup flow for removing object types remotely.</li>
+            <li>Intended to be protected with explicit confirmation and dry-run style use.</li>
+          </ul>
+          <h3>Replace GUIDs</h3>
+          <ul>
+            <li>Analyzes GUID-based IDs in the current document.</li>
+            <li>Rewrites them to human-readable names while avoiding collisions with existing meaningful IDs.</li>
+          </ul>
+          <h3>Export Documentation</h3>
+          <ul>
+            <li>Generates Markdown and CSV from the current document.</li>
+            <li>Includes full attribute detail, not just names and types.</li>
+          </ul>
+          <h3>Push to Environment</h3>
+          <ul>
+            <li>Uses a named environment token stored on the project.</li>
+            <li>Discovers the mapping endpoint and pushes the current schema to that environment.</li>
+          </ul>
+          <h3>Sync Icons</h3>
+          <ul>
+            <li>Copies object type icon assignments between schemas.</li>
+            <li>Supports dry-run style checking before applying changes.</li>
+          </ul>
+        </section>
+
+        <section class="panel reveal" id="raw-json" data-section>
+          <span class="eyebrow">Direct JSON editing</span>
+          <h2>Raw JSON Editor</h2>
+          <p>
+            The raw editor is the low-level editing fallback and synchronization bridge between direct JSON changes
+            and the rest of the visual application.
+          </p>
+          <ul>
+            <li>Monaco editor with syntax highlighting, minimap, indent guides, and schema-aware completion.</li>
+            <li><code>Validate &amp; Sync</code> reparses the current text into application state.</li>
+            <li>Auto-validate keeps diagnostics refreshed while typing.</li>
+            <li>Export JSON downloads the current effective document.</li>
+            <li>Export Diagnostics downloads the current diagnostics list.</li>
+            <li>When staged deletions are active, the editor shows the effective filtered document and is read-only.</li>
+          </ul>
+          <article class="shot-card" style="margin-top:16px;">
+            <img src="assets/screens/pic_10.png" alt="Raw JSON Editor">
+            <div class="shot-copy">
+              <strong>Raw JSON Editor</strong>
+              <span>Low-level document editing with sync back into the visual model.</span>
+            </div>
+          </article>
+        </section>
+
+        <section class="panel reveal" id="settings" data-section>
+          <span class="eyebrow">Configuration</span>
+          <h2>Settings</h2>
+          <p>The Settings view holds per-project configuration for live integration and validation behavior.</p>
+          <h3>Atlassian connection settings</h3>
+          <ul>
+            <li>Atlassian site.</li>
+            <li>Atlassian email.</li>
+            <li>API token.</li>
+            <li>Assets schema ID.</li>
+          </ul>
+          <h3>Environments</h3>
+          <ul>
+            <li>Named push targets with bearer tokens.</li>
+            <li>Used by Push to Environment and Compare with Remote.</li>
+            <li>Editable, removable, and persisted with the project.</li>
+          </ul>
+          <h3>Validation settings</h3>
+          <ul>
+            <li>Rules grouped by contract, business, cross-reference, impact, and semantic categories.</li>
+            <li>Supports enable all, disable all, reset, and per-category mass toggles.</li>
+          </ul>
+        </section>
+
+        <section class="panel reveal" id="search" data-section>
+          <span class="eyebrow">Navigation and productivity</span>
+          <h2>Search, command palette, and shortcuts</h2>
+          <p>
+            The app supports keyboard-driven navigation and search so users can move through large schemas without relying only on the mouse.
+          </p>
+          <h3>Command palette</h3>
+          <ul>
+            <li>Opened with <code>Cmd/Ctrl+K</code>.</li>
+            <li>Searches object types and attributes using the domain search index.</li>
+            <li>Selecting a result moves the user to the schema view and focuses the matching location.</li>
+          </ul>
+          <h3>Global shortcuts</h3>
+          <ul>
+            <li><code>Cmd/Ctrl+S</code> save project.</li>
+            <li><code>Cmd/Ctrl+Shift+S</code> save version.</li>
+            <li><code>Cmd/Ctrl+Z</code> undo.</li>
+            <li>Go To mode for switching views quickly.</li>
+            <li><code>?</code> opens help.</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="shell">
+      <div class="footer-card panel">
+        <div>
+          <span class="eyebrow">Continue</span>
+          <p>Move from product behavior into the implementation and route layers.</p>
+        </div>
+        <div class="hero-actions">
+          <a class="button button-secondary" href="architecture.html">Architecture</a>
+          <a class="button button-secondary" href="api.html">API</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>
