@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 // BANNER_KEY to the next version (v4 → v5 → …). Bumping the key forces the
 // banner to reappear for all users who previously dismissed it.
 // ──────────────────────────────────────────────────────────────────────────
-const BANNER_KEY = 'whats-new-dismissed-v15';
+const BANNER_KEY = 'whats-new-dismissed-v16';
 
 type Feature = {
   icon: string;
@@ -16,6 +16,12 @@ type Feature = {
 };
 
 const FEATURES: Feature[] = [
+  {
+    icon: '📸',
+    title: 'Documentation refreshed with 14 new screenshots',
+    description:
+      'All documentation screenshots updated to reflect the current UI redesign. Covers login, projects, schema explorer, mapping explorer, validation, diff, tools, JSON editor, settings, graph views, project overview, sharing modal, and more.',
+  },
   {
     icon: '🕸️',
     title: 'Docs now include graph view details',

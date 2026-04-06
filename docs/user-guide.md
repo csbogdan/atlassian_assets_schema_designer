@@ -102,7 +102,7 @@ If running via Docker with a mounted volume, place your JSON file in `/app/proje
 
 ## Schema Explorer
 
-[![Schema Explorer](screens/thumbs/pic_2.png)](screens/pic_2.png)
+[![Schema Explorer](screens/thumbs/pic_3.png)](screens/pic_3.png)
 
 The Schema Explorer renders the object type hierarchy as a collapsible tree.
 
@@ -122,13 +122,13 @@ The Schema Explorer renders the object type hierarchy as a collapsible tree.
 **Switching to Graph view:**
 Use the **Tree / Graph** toggle in the Schema toolbar to switch to the hierarchy graph. The graph shows inheritance relationships as a node-link diagram.
 
-[![Schema Graph view](screens/thumbs/pic_6.png)](screens/pic_6.png)
+[![Schema Graph view](screens/thumbs/pic_10.png)](screens/pic_10.png)
 
 ---
 
 ## Mapping Explorer
 
-[![Mapping Explorer](screens/thumbs/pic_11.png)](screens/pic_11.png)
+[![Mapping Explorer](screens/thumbs/pic_4.png)](screens/pic_4.png)
 
 The Mapping Explorer shows each object type mapping alongside the corresponding schema definition.
 
@@ -149,7 +149,7 @@ Use the search box at the top to filter object types by name. Mappings that cont
 
 ## Raw JSON Editor
 
-[![Raw JSON Editor](screens/thumbs/pic_10.png)](screens/pic_10.png)
+[![Raw JSON Editor](screens/thumbs/pic_8.png)](screens/pic_8.png)
 
 The Raw JSON tab hosts a full Monaco editor instance with:
 
@@ -172,7 +172,7 @@ Clicking "Locate in JSON" in the Schema Explorer or Validation Console highlight
 
 ## Validation Console
 
-[![Validation Console](screens/thumbs/pic_8.png)](screens/pic_8.png)
+[![Validation Console](screens/thumbs/pic_5.png)](screens/pic_5.png)
 
 The Validation Console runs five layers of validation in sequence:
 
@@ -197,7 +197,7 @@ Click any diagnostic row to jump to it in the Raw JSON editor.
 
 ## Semantic Diff
 
-[![Semantic Diff](screens/thumbs/pic_3.png)](screens/pic_3.png)
+[![Semantic Diff](screens/thumbs/pic_6.png)](screens/pic_6.png)
 
 
 The Diff panel compares two versions of a document.
@@ -218,13 +218,9 @@ Each change shows the JSON Pointer path, the old value, and the new value.
 
 ## Reference Graph
 
-[![Reference Graph](screens/thumbs/pic_7.png)](screens/pic_7.png)
+The Schema tab has a graph view accessible via the **Graph** toggle in the toolbar:
 
-The Schema tab has two graph views accessible via the **Graph** toggle in the toolbar:
-
-**Hierarchy graph** (`pic_6`) — shows the parent/child inheritance tree. Each node is an object type; edges are `child` relationships.
-
-**Reference graph** — shows cross-references between object types. Each edge is a `referenced_object` attribute linking one type to another.
+**Schema Graph** — shows object type hierarchy with inheritance relationships and dependencies. Nodes represent object types; edges show child and reference relationships.
 
 **Interacting with the graph:**
 - **Scroll** to zoom in/out
@@ -243,7 +239,7 @@ The Schema tab has two graph views accessible via the **Graph** toggle in the to
 
 ## Stats Dashboard
 
-[![Stats Dashboard](screens/thumbs/pic_1.png)](screens/pic_1.png)
+[![Stats Dashboard](screens/thumbs/pic_12.png)](screens/pic_12.png)
 
 The Stats Dashboard provides a quick health check:
 
@@ -271,7 +267,7 @@ The Search tab lets you search across the entire document:
 
 ## Changelog
 
-[![Changelog](screens/thumbs/pic_4.png)](screens/pic_4.png)
+The Changelog tab generates a narrative description of changes between two document versions. It summarises:
 
 The Changelog tab generates a narrative description of changes between two document versions. It summarises:
 
@@ -286,7 +282,7 @@ This is useful for writing release notes or communicating changes to stakeholder
 
 ## Tools Panel
 
-[![Tools Panel](screens/thumbs/pic_9.png)](screens/pic_9.png)
+[![Tools Panel](screens/thumbs/pic_7.png)](screens/pic_7.png)
 
 The Tools tab consolidates operational actions that interact with JSM's APIs or perform bulk operations.
 
@@ -356,7 +352,7 @@ The document updates immediately and the Raw JSON editor reflects the change.
 
 ## Settings
 
-[![Settings — Validation Rules](screens/thumbs/pic_5.png)](screens/pic_5.png)
+[![Settings — Validation Rules](screens/thumbs/pic_9.png)](screens/pic_9.png)
 
 The **Settings** tab has two sections:
 

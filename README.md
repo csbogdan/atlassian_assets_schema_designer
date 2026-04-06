@@ -18,7 +18,7 @@ Built for teams who manage complex Assets schemas and need a professional toolch
 - **Bulk Tools** — bulk-add attributes, clone object types, export CSV/Markdown
 - **Python Utilities** — CLI scripts for export, bulk delete, and GUID replacement
 
-[![Overview](docs/screens/thumbs/pic_1.png)](docs/screens/pic_1.png)
+[![Overview Dashboard](docs/screens/thumbs/pic_12.png)](docs/screens/pic_12.png)
 
 ## Quick Start
 
