@@ -1,0 +1,27 @@
+# Local project data — never ship user data in the image
+.jsm-projects
+projects
+
+# Build artefacts
+.next
+out
+
+# Dependencies (reinstalled inside the image)
+node_modules
+
+# Dev/test
+test-results
+tmp-*.png
+e2e
+
+# Git / editor
+.git
+.gitignore
+.DS_Store
+*.log
+
+# Python byte-code
+__pycache__
+*.pyc
+*.pyo
+.venv

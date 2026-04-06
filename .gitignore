@@ -1,0 +1,14 @@
+node_modules
+.next
+test-results
+tmp-localhost.png
+src/features/.DS_Store
+.DS_Store
+.jsm-projects
+# .env.local
+# .env*.local
+# .mcp.json
+# .claude-flow/
+# .swarm/
+# .planning/
+# .deploy-settings-hash
