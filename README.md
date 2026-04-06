@@ -51,6 +51,10 @@ See [Deployment Guide](docs/deployment.md) for production setup, reverse proxy c
 
 ## Documentation
 
+**📖 [Published Documentation Site](https://csbogdan.github.io/atlassian_assets_schema_designer/)** — Interactive product documentation with feature guides, architecture, and API reference.
+
+Local docs in this repository:
+
 | Document | Description |
 |---|---|
 | [User Guide](docs/user-guide.md) | Full feature walkthrough with screenshots descriptions |
