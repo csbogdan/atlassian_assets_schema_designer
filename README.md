@@ -81,4 +81,6 @@ npm run e2e     # Playwright E2E smoke tests
 
 ## License
 
-Internal tool — Atlassian JSM Assets team.
+🎉 **Internal tool, lovingly built by someone who got tired of editing Assets schemas in raw JSON at 3am.**
+
+Use freely within Atlassian. If you're reading this from outside Atlassian and found it useful, that's honestly flattering. Please don't sue us.
