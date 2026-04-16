@@ -475,3 +475,4 @@ export function DiagnosticsPanel() {
     </Panel>
   );
 }
+

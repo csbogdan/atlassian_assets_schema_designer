@@ -214,12 +214,24 @@ if [[ "$NEW_PG" == "true" ]]; then
 else
   echo "      (existing secrets — skipping Key Vault read/write)"
 fi
+
+# Read OPENROUTER_API_KEY from .env.local if not already in environment
+if [[ -z "${OPENROUTER_API_KEY:-}" && -f "$REPO_ROOT/.env.local" ]]; then
+  OPENROUTER_API_KEY="$(grep '^OPENROUTER_API_KEY=' "$REPO_ROOT/.env.local" | head -1 | cut -d'=' -f2- | tr -d '"' | tr -d "'")"
+fi
+# Store in Key Vault whenever it's available
+if [[ -n "${OPENROUTER_API_KEY:-}" ]]; then
+  echo "      (storing OPENROUTER-API-KEY in Key Vault)"
+  az keyvault secret set --vault-name "$KV_NAME" --name "OPENROUTER-API-KEY" --value "$OPENROUTER_API_KEY" --output none
+else
+  echo "      (OPENROUTER_API_KEY not found in env or .env.local — skipping)"
+fi
 step_done
 
 step_start; echo "[8/8] Configuring App Service..."
 # All settings are static (derived from PREFIX/KV_NAME). Hash them and skip if unchanged.
-SETTINGS_HASH="$(echo "NODE_ENV=production AUTH_URL=$APP_URL AUTH_TRUST_HOST=true WEBSITES_PORT=3000 SCM_DO_BUILD_DURING_DEPLOYMENT=false KV=$KV_NAME" \
-  | md5 -q 2>/dev/null || echo "NODE_ENV=production AUTH_URL=$APP_URL AUTH_TRUST_HOST=true WEBSITES_PORT=3000 SCM_DO_BUILD_DURING_DEPLOYMENT=false KV=$KV_NAME" \
+SETTINGS_HASH="$(echo "NODE_ENV=production AUTH_URL=$APP_URL AUTH_TRUST_HOST=true WEBSITES_PORT=3000 SCM_DO_BUILD_DURING_DEPLOYMENT=false KV=$KV_NAME OPENROUTER=1" \
+  | md5 -q 2>/dev/null || echo "NODE_ENV=production AUTH_URL=$APP_URL AUTH_TRUST_HOST=true WEBSITES_PORT=3000 SCM_DO_BUILD_DURING_DEPLOYMENT=false KV=$KV_NAME OPENROUTER=1" \
   | md5sum | cut -d' ' -f1)"
 SETTINGS_HASH_FILE="$REPO_ROOT/.deploy-settings-hash"
 if [[ "$(cat "$SETTINGS_HASH_FILE" 2>/dev/null)" == "$SETTINGS_HASH" ]]; then
@@ -236,6 +248,7 @@ else
       "AUTH_SECRET=@Microsoft.KeyVault(VaultName=${KV_NAME};SecretName=AUTH-SECRET)" \
       "DATABASE_URL=@Microsoft.KeyVault(VaultName=${KV_NAME};SecretName=DATABASE-URL)" \
       "ADMIN_KEY=@Microsoft.KeyVault(VaultName=${KV_NAME};SecretName=ADMIN-KEY)" \
+      "OPENROUTER_API_KEY=@Microsoft.KeyVault(VaultName=${KV_NAME};SecretName=OPENROUTER-API-KEY)" \
     --output none
   echo "$SETTINGS_HASH" > "$SETTINGS_HASH_FILE"
 fi

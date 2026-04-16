@@ -9,8 +9,9 @@ import type { ConfigStatus, ProgressResult } from '@/domain/api/assetsImportSour
 import type { AssetsImportDocument, ProjectSettings } from '@/domain/model/types';
 
 import type { ProjectEnvironment } from '@/domain/model/types';
+import { LLM_MODELS, type LLMModel, type LLMFinding, type LLMReviewResult } from '@/domain/llm/reviewPrompt';
 
-type ToolSection = 'import-jsm' | 'push-mapping' | 'export-schema' | 'delete-types' | 'replace-guids' | 'export-docs' | 'push-to-env' | 'sync-icons';
+type ToolSection = 'import-jsm' | 'push-mapping' | 'export-schema' | 'delete-types' | 'replace-guids' | 'export-docs' | 'push-to-env' | 'sync-icons' | 'ai-review';
 
 export function ToolsPanel() {
   const [expanded, setExpanded] = useState<ToolSection | null>('import-jsm');
@@ -82,6 +83,12 @@ export function ToolsPanel() {
         expanded={expanded === 'sync-icons'}
         onToggle={() => toggle('sync-icons')}
         defaults={projectSettings}
+      />
+
+      <AISchemaReviewCard
+        expanded={expanded === 'ai-review'}
+        onToggle={() => toggle('ai-review')}
+        document={document}
       />
     </div>
   );
@@ -939,6 +946,192 @@ function PushToEnvCard({
             )}
             <LogOutput lines={log} />
           </>
+        )}
+      </div>
+    </Card>
+  );
+}
+
+// ─── Tool 9: AI Schema Review ─────────────────────────────────────────────────
+
+const CATEGORY_LABELS: Record<string, string> = {
+  naming: 'Naming',
+  structure: 'Structure',
+  mapping: 'Mapping',
+  cardinality: 'Cardinality',
+  'best-practice': 'Best Practice',
+  performance: 'Performance',
+  completeness: 'Completeness',
+};
+
+function scoreColorClass(score: number): string {
+  if (score >= 85) return 'bg-green-100 text-green-800 border-green-300';
+  if (score >= 70) return 'bg-amber-100 text-amber-700 border-amber-300';
+  if (score >= 50) return 'bg-orange-100 text-orange-700 border-orange-300';
+  return 'bg-red-100 text-red-700 border-red-300';
+}
+
+function LLMFindingCard({ finding }: { finding: LLMFinding }) {
+  const sevClass =
+    finding.severity === 'error'
+      ? 'border-red-200 bg-red-50/50'
+      : finding.severity === 'warning'
+        ? 'border-amber-200 bg-amber-50/60'
+        : 'border-sky-200 bg-sky-50/60';
+  const sevBadge =
+    finding.severity === 'error'
+      ? 'bg-red-100 text-red-700'
+      : finding.severity === 'warning'
+        ? 'bg-amber-100 text-amber-700'
+        : 'bg-sky-100 text-sky-700';
+
+  return (
+    <div className={`rounded-md border p-3 ${sevClass}`}>
+      <div className="flex flex-wrap items-center gap-2 mb-1">
+        <span className={`rounded-full px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide ${sevBadge}`}>
+          {finding.severity}
+        </span>
+        <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[11px] text-slate-600">
+          {CATEGORY_LABELS[finding.category] ?? finding.category}
+        </span>
+        <span className="text-sm font-semibold text-slate-900">{finding.title}</span>
+      </div>
+      <p className="text-sm text-slate-700">{finding.description}</p>
+      {finding.suggestion && (
+        <div className="mt-1.5 rounded-md border border-slate-200 bg-white/80 px-2 py-1 text-xs text-slate-700">
+          Suggestion: {finding.suggestion}
+        </div>
+      )}
+      {finding.path && (
+        <div className="mt-1 font-mono text-xs text-slate-400">{finding.path}</div>
+      )}
+    </div>
+  );
+}
+
+function AISchemaReviewCard({ expanded, onToggle, document }: {
+  expanded: boolean;
+  onToggle: () => void;
+  document: AssetsImportDocument | undefined;
+}) {
+  const [model, setModel] = useState<LLMModel>('gemini-flash');
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<LLMReviewResult | null>(null);
+  const [error, setError] = useState('');
+
+  const run = async () => {
+    if (!document) return;
+    setLoading(true);
+    setError('');
+    setResult(null);
+    try {
+      const r = await fetch('/api/tools/llm-review', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ document, model }),
+      });
+      const data = await r.json() as LLMReviewResult & { error?: string };
+      if (!r.ok || data.error) { setError(data.error ?? 'AI review failed'); return; }
+      setResult(data);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : String(e));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const errorCount = result?.recommendations.filter((f) => f.severity === 'error').length ?? 0;
+  const warningCount = result?.recommendations.filter((f) => f.severity === 'warning').length ?? 0;
+  const infoCount = result?.recommendations.filter((f) => f.severity === 'info').length ?? 0;
+
+  return (
+    <Card
+      title="AI Schema Review"
+      subtitle="Send the current schema to an LLM for quality analysis, gap detection, and prioritised recommendations"
+      expanded={expanded}
+      onToggle={onToggle}
+    >
+      <div className="space-y-3">
+        {!document && (
+          <div className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-500">
+            No document loaded. Open or import a project first.
+          </div>
+        )}
+
+        {/* Model selector */}
+        <div>
+          <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Model</div>
+          <div className="flex flex-wrap gap-4">
+            {(Object.entries(LLM_MODELS) as [LLMModel, (typeof LLM_MODELS)[LLMModel]][]).map(([key, cfg]) => (
+              <label key={key} className="flex cursor-pointer items-center gap-2 text-sm text-slate-700">
+                <input
+                  type="radio"
+                  name="ai-review-model"
+                  checked={model === key}
+                  onChange={() => setModel(key)}
+                />
+                {cfg.label}
+                <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${cfg.badgeClass}`}>
+                  {cfg.badge}
+                </span>
+              </label>
+            ))}
+          </div>
+          <p className="mt-1.5 text-xs text-slate-400">
+            Fast: quick scan, low cost · Deep: extended reasoning, 1M context · Expert: precise consultant-style analysis
+          </p>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <button
+            className="rounded-lg bg-violet-700 px-4 py-2 text-sm font-semibold text-white hover:bg-violet-800 disabled:opacity-50"
+            disabled={loading || !document}
+            onClick={() => void run()}
+          >
+            {loading ? 'Analyzing…' : 'Run AI Review'}
+          </button>
+          {loading && (
+            <span className="text-xs text-slate-400">10–30 s depending on schema size and model</span>
+          )}
+        </div>
+
+        {error && (
+          <div className="rounded-lg border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-700">{error}</div>
+        )}
+
+        {result && (
+          <div className="space-y-3">
+            <div className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
+              <div className="flex flex-wrap items-start gap-3">
+                {result.score !== null && (
+                  <div className={`rounded-lg border px-4 py-2 text-center min-w-[72px] ${scoreColorClass(result.score)}`}>
+                    <div className="text-2xl font-bold leading-none">{result.score}</div>
+                    <div className="mt-0.5 text-[10px] font-semibold uppercase tracking-wide opacity-70">Score</div>
+                  </div>
+                )}
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm text-slate-700">{result.summary}</p>
+                  <div className="mt-2 flex flex-wrap items-center gap-3 text-xs text-slate-500">
+                    <span>Model: <strong>{result.model}</strong></span>
+                    <span>Mode: <strong>{result.mode}</strong></span>
+                    <span>~{result.inputTokenEst.toLocaleString()} tokens</span>
+                    {errorCount > 0 && <span className="font-semibold text-red-600">{errorCount} error{errorCount !== 1 ? 's' : ''}</span>}
+                    {warningCount > 0 && <span className="font-semibold text-amber-600">{warningCount} warning{warningCount !== 1 ? 's' : ''}</span>}
+                    {infoCount > 0 && <span className="text-sky-600">{infoCount} info</span>}
+                  </div>
+                </div>
+              </div>
+            </div>
+            {result.recommendations.length > 0 ? (
+              <div className="space-y-2">
+                {result.recommendations.map((finding, i) => <LLMFindingCard key={i} finding={finding} />)}
+              </div>
+            ) : (
+              <div className="rounded-lg border border-green-200 bg-green-50 px-3 py-2 text-sm text-green-700">
+                No recommendations — schema looks good.
+              </div>
+            )}
+          </div>
         )}
       </div>
     </Card>

@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 // BANNER_KEY to the next version (v4 → v5 → …). Bumping the key forces the
 // banner to reappear for all users who previously dismissed it.
 // ──────────────────────────────────────────────────────────────────────────
-const BANNER_KEY = 'whats-new-dismissed-v16';
+const BANNER_KEY = 'whats-new-dismissed-v17';
 
 type Feature = {
   icon: string;
@@ -16,6 +16,12 @@ type Feature = {
 };
 
 const FEATURES: Feature[] = [
+  {
+    icon: '🤖',
+    title: 'AI Schema Review',
+    description:
+      'New section in the Validation panel: send your schema to an LLM for on-demand quality analysis. Choose between Gemini 2.0 Flash (fast), Gemini 2.5 Pro (deep reasoning), or Claude Opus 4.5 (expert review). Each model uses a tailored prompt and returns a quality score plus prioritised recommendations across naming, structure, mapping, cardinality, best practices, and performance.',
+  },
   {
     icon: '📸',
     title: 'Documentation refreshed with 14 new screenshots',
