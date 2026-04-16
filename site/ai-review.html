@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Schema Review • JSM Assets Schema Designer documentation</title>
+  <meta name="description" content="LLM-powered schema quality analysis, gap detection, and prioritised recommendations for JSM Assets Schema Designer.">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <header class="page-header">
+    <div class="shell topbar">
+      <div class="brand">
+        <div class="brand-badge">
+          <img src="assets/logo_3.png" alt="JASD logo">
+        </div>
+        <div class="brand-copy">
+          <small>Product documentation</small>
+          <strong>Assets Schema Designer</strong>
+        </div>
+      </div>
+      <div class="top-links">
+        <button class="menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="site-nav">Menu</button>
+        <nav id="site-nav" class="nav-links" data-menu>
+          <a class="nav-chip" href="index.html">Overview</a>
+          <a class="nav-chip" href="features.html">Features</a>
+          <a class="nav-chip" href="architecture.html">Architecture</a>
+          <a class="nav-chip" href="api.html">API</a>
+          <a class="nav-chip" href="ops.html">Pipeline</a>
+          <a class="nav-chip" aria-current="page" href="ai-review.html">AI Review</a>
+          <a class="nav-chip" href="https://github.com/csbogdan/atlassian_assets_schema_designer" target="_blank" title="GitHub repository">🐙</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="shell content-stack">
+
+      <section class="panel reveal">
+        <span class="eyebrow">Intelligent analysis</span>
+        <h1 style="margin:10px 0 14px;font-size:2.4rem;line-height:1.08;letter-spacing:-0.02em;">AI Schema Review</h1>
+        <p>
+          AI Schema Review sends your loaded schema-and-mapping document to a large language model via
+          <a href="https://openrouter.ai" target="_blank">OpenRouter</a> and returns a prioritised set of
+          recommendations covering naming, structure, mapping coverage, cardinality, best practices, performance,
+          and domain completeness. The tool infers the real-world domain your schema models and flags obvious
+          gaps alongside structural issues.
+        </p>
+      </section>
+
+      <section class="workflow-grid">
+        <article class="workflow-card reveal">
+          <span class="eyebrow">Where to find it</span>
+          <strong>Tools panel → AI Schema Review</strong>
+          <p>The last card in the Tools panel. Expand it, pick a model, and click <em>Run AI Review</em>. Results appear inline with a quality score, executive summary, and a categorised finding list.</p>
+        </article>
+        <article class="workflow-card reveal">
+          <span class="eyebrow">What it produces</span>
+          <strong>Score + prioritised findings</strong>
+          <p>A 0–100 quality score, a 2–3 sentence executive summary, and up to 15 findings — each with severity, category, description, path, and a concrete remediation step.</p>
+        </article>
+      </section>
+
+      <section class="panel reveal">
+        <span class="eyebrow">Models</span>
+        <h2>Choose the right model for your workflow</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Model</th>
+                <th>Badge</th>
+                <th>Context</th>
+                <th>Best for</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Gemini 2.0 Flash</strong></td>
+                <td><code>Fast</code></td>
+                <td>1 M tokens</td>
+                <td>Routine checks during active schema editing. Returns results in seconds at minimal cost. Handles even the largest schemas in full-document mode.</td>
+              </tr>
+              <tr>
+                <td><strong>Gemini 2.5 Pro</strong></td>
+                <td><code>Deep</code></td>
+                <td>1 M tokens</td>
+                <td>Pre-production review or schemas with complex inheritance hierarchies. Uses extended reasoning to surface subtle anti-patterns and cross-cutting issues.</td>
+              </tr>
+              <tr>
+                <td><strong>Claude Opus 4.5</strong></td>
+                <td><code>Expert</code></td>
+                <td>200 K tokens</td>
+                <td>Formal governance reviews where precise, actionable language matters. Uses a structured consultant-style prompt with explicit scoring arithmetic.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="margin-top:1rem;">
+          Each model receives a tailored system prompt — not a generic one. The prompts differ in framing, reasoning
+          strategy, and output style to get the most out of each model's specific strengths.
+        </p>
+      </section>
+
+      <section class="panel reveal">
+        <span class="eyebrow">Analysis categories</span>
+        <h2>What gets checked</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>What the model looks for</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Naming</strong></td>
+                <td>Consistent capitalisation conventions, duplicate names at the same hierarchy level, names with special characters or starting with digits.</td>
+              </tr>
+              <tr>
+                <td><strong>Structure</strong></td>
+                <td>Hierarchy depth, correct use of <code>abstractObject</code> flags, inheritance wiring, orphaned branches with no children or mappings.</td>
+              </tr>
+              <tr>
+                <td><strong>Mapping</strong></td>
+                <td>Unmapped object types, missing selectors or locators, fragile IQL expressions, attribute mappings with empty locators, coverage ratio.</td>
+              </tr>
+              <tr>
+                <td><strong>Cardinality</strong></td>
+                <td>
+                  <code>minimumCardinality &gt; maximumCardinality</code> violations, boolean attributes with
+                  <code>maximumCardinality &gt; 1</code> (logically invalid), required attributes on abstract types (unenforced).
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Best Practice</strong></td>
+                <td>At least one <code>label: true</code> attribute per concrete type, description fields on top-level types, human-readable <code>externalId</code> values, <code>statusSchema</code> alignment.</td>
+              </tr>
+              <tr>
+                <td><strong>Performance</strong></td>
+                <td>Object types with more than 25 attributes, hierarchies deeper than 5 levels, schemas with less than 50% mapping coverage that will silently skip most types on import.</td>
+              </tr>
+              <tr>
+                <td><strong>Completeness</strong></td>
+                <td>
+                  The model first infers the real-world domain (e.g. IT asset management, HR, network infrastructure) from type and attribute names, then identifies entities or relationships clearly implied by the domain but absent from the schema. Only obvious, strongly-implied gaps are flagged — not wishlist additions.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel reveal">
+        <span class="eyebrow">Quality score</span>
+        <h2>How the 0–100 score is calculated</h2>
+        <p>
+          Each model uses a severity-weighted deduction approach. The score starts at 100. Each <strong>error</strong>
+          deducts 10–15 points; each <strong>warning</strong> deducts 3–5 points; <strong>info</strong> findings have
+          minimal or no impact. The score never goes below 0.
+        </p>
+        <div class="stats-grid" style="margin-top:1.5rem;">
+          <article class="stat-card reveal">
+            <div class="big" style="color:#16a34a;">85–100</div>
+            <strong>Production-ready</strong>
+            <p>Clean, complete, well-structured. Minor polish only.</p>
+          </article>
+          <article class="stat-card reveal">
+            <div class="big" style="color:#d97706;">70–84</div>
+            <strong>Minor issues</strong>
+            <p>Ready with small fixes. Address warnings before go-live.</p>
+          </article>
+          <article class="stat-card reveal">
+            <div class="big" style="color:#ea580c;">50–69</div>
+            <strong>Moderate issues</strong>
+            <p>Meaningful improvements needed before production.</p>
+          </article>
+          <article class="stat-card reveal">
+            <div class="big" style="color:#dc2626;">0–49</div>
+            <strong>Significant problems</strong>
+            <p>Structural or mapping issues likely to cause import failures.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel reveal">
+        <span class="eyebrow">Large schemas</span>
+        <h2>Full-document vs summary mode</h2>
+        <p>
+          Before sending to the API, the tool estimates the token count
+          (<code>characters / 4</code>). If the full JSON fits within the model's context budget
+          (context window minus 20 K reserved for the response), it sends the complete document.
+          Otherwise it sends a <strong>structural summary</strong> instead.
+        </p>
+        <div class="api-grid" style="margin-top:1rem;">
+          <article class="api-card reveal">
+            <span class="eyebrow">Full mode</span>
+            <strong>Complete JSON sent</strong>
+            <p>All attribute values, selectors, IQL expressions, and locators are visible to the model. Produces the most accurate findings. Used by default for any schema that fits the context.</p>
+          </article>
+          <article class="api-card reveal">
+            <span class="eyebrow">Summary mode</span>
+            <strong>Structural skeleton sent</strong>
+            <p>Extracts type names, attribute names and types, mapping selector counts, and unmapped type annotations. Reduces input by ~20×. Used automatically when full JSON would exceed the context budget.</p>
+          </article>
+        </div>
+        <p style="margin-top:1rem;">
+          Gemini 2.0 Flash and Gemini 2.5 Pro both have a 1 M token context window, so full-document mode applies to
+          virtually all real-world schemas. Claude Opus 4.5 has a 200 K token limit and may fall back to summary mode
+          for very large schemas.
+        </p>
+        <p>The result header shows which mode was used alongside the token estimate.</p>
+      </section>
+
+      <section class="panel reveal">
+        <span class="eyebrow">Setup</span>
+        <h2>Configuration</h2>
+        <p>Add your OpenRouter API key to <code>.env.local</code> in the project root:</p>
+        <pre><code>OPENROUTER_API_KEY=sk-or-v1-...</code></pre>
+        <p>Restart the dev server after adding the key. In production (Azure App Service), the deploy script reads the key from <code>.env.local</code> and stores it in Key Vault automatically on first deploy.</p>
+        <div class="callout" style="margin-top:1rem;">
+          <strong>The key never reaches the browser</strong>
+          <p>
+            <code>OPENROUTER_API_KEY</code> is read exclusively by the
+            <code>POST /api/tools/llm-review</code> server route. It is not prefixed with
+            <code>NEXT_PUBLIC_</code> and is never included in the client bundle.
+          </p>
+        </div>
+      </section>
+
+      <section class="panel reveal">
+        <span class="eyebrow">API route</span>
+        <h2><code>POST /api/tools/llm-review</code></h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>document</code></td><td><code>AssetsImportDocument</code></td><td>Required. The full schema-and-mapping payload.</td></tr>
+              <tr><td><code>model</code></td><td><code>"gemini-flash" | "gemini-pro" | "claude-opus"</code></td><td>Optional. Defaults to <code>gemini-flash</code>.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="margin-top:1rem;">Response shape:</p>
+        <pre><code>{
+  "summary": "...",
+  "score": 78,
+  "recommendations": [
+    {
+      "severity": "warning",
+      "category": "mapping",
+      "title": "...",
+      "description": "...",
+      "path": "/schema/objectSchema/objectTypes/3",
+      "suggestion": "..."
+    }
+  ],
+  "model": "Gemini 2.0 Flash",
+  "mode": "full",
+  "inputTokenEst": 12400
+}</code></pre>
+        <p>The route has a 120-second timeout (<code>export const maxDuration = 120</code>) to accommodate large schemas on slower models.</p>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="shell">
+      <div class="footer-card panel">
+        <div>
+          <span class="eyebrow">Continue reading</span>
+          <p>See the full feature guide for end-user workflows, or the API reference for the complete route surface.</p>
+        </div>
+        <div class="hero-actions">
+          <a class="button button-secondary" href="features.html">Features</a>
+          <a class="button button-secondary" href="api.html">API</a>
+          <a class="button button-secondary" href="https://github.com/csbogdan/atlassian_assets_schema_designer" target="_blank">🐙 GitHub</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>
