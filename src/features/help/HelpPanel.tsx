@@ -663,6 +663,24 @@ export function HelpPanel({ open, onClose }: Props) {
                 <li><code className="font-mono bg-slate-100 px-1 rounded">inherited</code> — whether the attribute is defined on a parent type</li>
               </ul>
 
+              <h3 className="text-sm font-semibold text-slate-800 mt-4 mb-1">AI Schema Review</h3>
+              <p className="mb-2 leading-relaxed">
+                Sends the loaded schema-and-mapping document to a large language model via OpenRouter and
+                returns a prioritised set of findings covering naming, structure, mapping, cardinality,
+                best practices, performance, and domain completeness.
+              </p>
+              <ul className="space-y-1.5 list-disc list-inside text-slate-700 mb-2">
+                <li><span className="font-medium">Gemini 2.0 Flash</span> — fast, 1 M token context. Good for routine checks during active editing.</li>
+                <li><span className="font-medium">Gemini 2.5 Pro</span> — deep reasoning, 1 M token context. Use for pre-production reviews and complex hierarchies.</li>
+                <li><span className="font-medium">Claude Opus 4.5</span> — consultant-style analysis, 200 K token context. Use for formal governance reviews.</li>
+              </ul>
+              <p className="leading-relaxed">
+                Results include a 0–100 quality score, a 2–3 sentence executive summary, and up to 15
+                findings — each with severity, category, path, and a concrete remediation step. Requires an
+                {' '}<code className="font-mono text-xs bg-slate-100 px-1 rounded">OPENROUTER_API_KEY</code>{' '}
+                set in <code className="font-mono text-xs bg-slate-100 px-1 rounded">.env.local</code>.
+              </p>
+
               <h3 className="text-sm font-semibold text-slate-800 mt-4 mb-1">Environments</h3>
               <p className="leading-relaxed mb-2">
                 Named push targets, each with a Bearer token for an Atlassian import source. Configured in the
