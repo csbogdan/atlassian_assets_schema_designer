@@ -77,21 +77,21 @@
             </thead>
             <tbody>
               <tr>
-                <td><strong>Gemini 2.0 Flash</strong></td>
+                <td><strong>Gemini 3.7 Flash</strong></td>
                 <td><code>Fast</code></td>
                 <td>1 M tokens</td>
                 <td>Routine checks during active schema editing. Returns results in seconds at minimal cost. Handles even the largest schemas in full-document mode.</td>
               </tr>
               <tr>
-                <td><strong>Gemini 2.5 Pro</strong></td>
+                <td><strong>Gemini 3.1 Pro</strong></td>
                 <td><code>Deep</code></td>
                 <td>1 M tokens</td>
                 <td>Pre-production review or schemas with complex inheritance hierarchies. Uses extended reasoning to surface subtle anti-patterns and cross-cutting issues.</td>
               </tr>
               <tr>
-                <td><strong>Claude Opus 4.5</strong></td>
+                <td><strong>Claude Opus 5</strong></td>
                 <td><code>Expert</code></td>
-                <td>200 K tokens</td>
+                <td>1 M tokens</td>
                 <td>Formal governance reviews where precise, actionable language matters. Uses a structured consultant-style prompt with explicit scoring arithmetic.</td>
               </tr>
             </tbody>
@@ -207,9 +207,8 @@
           </article>
         </div>
         <p style="margin-top:1rem;">
-          Gemini 2.0 Flash and Gemini 2.5 Pro both have a 1 M token context window, so full-document mode applies to
-          virtually all real-world schemas. Claude Opus 4.5 has a 200 K token limit and may fall back to summary mode
-          for very large schemas.
+          All three models have a 1 M token context window, so full-document mode applies to virtually all
+          real-world schemas. Summary mode is a fallback for extreme cases only.
         </p>
         <p>The result header shows which mode was used alongside the token estimate.</p>
       </section>
@@ -258,7 +257,7 @@
       "suggestion": "..."
     }
   ],
-  "model": "Gemini 2.0 Flash",
+  "model": "Gemini 3.7 Flash",
   "mode": "full",
   "inputTokenEst": 12400
 }</code></pre>

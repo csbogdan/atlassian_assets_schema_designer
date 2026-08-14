@@ -670,9 +670,9 @@ export function HelpPanel({ open, onClose }: Props) {
                 best practices, performance, and domain completeness.
               </p>
               <ul className="space-y-1.5 list-disc list-inside text-slate-700 mb-2">
-                <li><span className="font-medium">Gemini 2.0 Flash</span> — fast, 1 M token context. Good for routine checks during active editing.</li>
-                <li><span className="font-medium">Gemini 2.5 Pro</span> — deep reasoning, 1 M token context. Use for pre-production reviews and complex hierarchies.</li>
-                <li><span className="font-medium">Claude Opus 4.5</span> — consultant-style analysis, 200 K token context. Use for formal governance reviews.</li>
+                <li><span className="font-medium">Gemini 3.7 Flash</span> — fast, 1 M token context. Good for routine checks during active editing.</li>
+                <li><span className="font-medium">Gemini 3.1 Pro</span> — deep reasoning, 1 M token context. Use for pre-production reviews and complex hierarchies.</li>
+                <li><span className="font-medium">Claude Opus 5</span> — consultant-style analysis, 1 M token context. Use for formal governance reviews.</li>
               </ul>
               <p className="leading-relaxed">
                 Results include a 0–100 quality score, a 2–3 sentence executive summary, and up to 15

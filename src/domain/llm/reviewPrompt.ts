@@ -8,29 +8,46 @@ export type LLMModelConfig = {
   label: string;
   id: string;
   contextTokens: number;
+  /** Upper bound for the model's completion. Reasoning models need more headroom. */
+  maxOutputTokens: number;
+  /**
+   * The Anthropic Messages API rejects `temperature` (and `top_p`/`top_k`) on
+   * Opus 5. OpenRouter normalises params per provider so it may strip it for us,
+   * but we don't rely on that — omit it where the underlying model disallows it.
+   * Gemini still honours temperature, so keep it there for repeatable reviews.
+   */
+  supportsTemperature: boolean;
   badge: string;
   badgeClass: string;
 };
 
 export const LLM_MODELS: Record<LLMModel, LLMModelConfig> = {
   'gemini-flash': {
-    label: 'Gemini 2.0 Flash',
-    id: 'google/gemini-2.0-flash-001',
-    contextTokens: 1_000_000,
+    label: 'Gemini 3.7 Flash',
+    id: 'google/gemini-3.7-flash',
+    contextTokens: 1_048_576,
+    maxOutputTokens: 8192,
+    supportsTemperature: true,
     badge: 'Fast',
     badgeClass: 'bg-sky-100 text-sky-700',
   },
   'gemini-pro': {
-    label: 'Gemini 2.5 Pro',
-    id: 'google/gemini-2.5-pro-preview',
-    contextTokens: 1_000_000,
+    label: 'Gemini 3.1 Pro',
+    id: 'google/gemini-3.1-pro-preview',
+    contextTokens: 1_048_576,
+    maxOutputTokens: 8192,
+    supportsTemperature: true,
     badge: 'Deep',
     badgeClass: 'bg-violet-100 text-violet-700',
   },
   'claude-opus': {
-    label: 'Claude Opus 4.5',
-    id: 'anthropic/claude-opus-4-5',
-    contextTokens: 200_000,
+    label: 'Claude Opus 5',
+    id: 'anthropic/claude-opus-5',
+    contextTokens: 1_000_000,
+    // Opus 5 thinks by default and max_tokens caps thinking + answer together,
+    // so leave room for reasoning ahead of the JSON body.
+    maxOutputTokens: 32_000,
+    supportsTemperature: false,
     badge: 'Expert',
     badgeClass: 'bg-amber-100 text-amber-700',
   },
@@ -244,18 +261,32 @@ export type PromptPayload = {
   inputTokenEst: number;
 };
 
+/**
+ * Slack left for tokenizer drift. `estimateTokens` is a chars/4 approximation,
+ * not a real tokenizer, and JSON-heavy text tokenizes worse than prose.
+ */
+const TOKEN_ESTIMATE_SAFETY_MARGIN = 0.85;
+
 export function buildPrompt(doc: AssetsImportDocument, model: LLMModel): PromptPayload {
   const cfg = LLM_MODELS[model];
-  const fullJson = JSON.stringify(doc, null, 2);
-  const fullEst = estimateTokens(fullJson);
 
-  // Reserve 20k tokens for system prompt + model response headroom
-  const budget = cfg.contextTokens - 20_000;
+  const systemPrompt =
+    model === 'gemini-flash' ? geminiFlashPrompt()
+    : model === 'gemini-pro' ? geminiProPrompt()
+    : claudeOpusPrompt();
+
+  const fullJson = JSON.stringify(doc, null, 2);
+
+  // The provider counts prompt + completion against the context window, so the
+  // budget must account for the system prompt and the reserved output tokens —
+  // not just the document JSON.
+  const overhead = estimateTokens(systemPrompt) + cfg.maxOutputTokens;
+  const budget = Math.floor((cfg.contextTokens - overhead) * TOKEN_ESTIMATE_SAFETY_MARGIN);
 
   let userContent: string;
   let mode: 'full' | 'summary';
 
-  if (fullEst <= budget) {
+  if (estimateTokens(fullJson) <= budget) {
     userContent = `Analyze this AssetsImportDocument:\n\n${fullJson}`;
     mode = 'full';
   } else {
@@ -263,11 +294,6 @@ export function buildPrompt(doc: AssetsImportDocument, model: LLMModel): PromptP
     userContent = `The full schema exceeds the context budget. Analyze this structural summary instead:\n\n${summary}`;
     mode = 'summary';
   }
-
-  const systemPrompt =
-    model === 'gemini-flash' ? geminiFlashPrompt()
-    : model === 'gemini-pro' ? geminiProPrompt()
-    : claudeOpusPrompt();
 
   return {
     systemPrompt,

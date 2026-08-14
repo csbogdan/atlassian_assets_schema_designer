@@ -46,6 +46,13 @@ export async function POST(request: Request) {
 
   const { systemPrompt, userContent, mode, inputTokenEst } = buildPrompt(document, model);
 
+  const rootTypeCount = document.schema.objectSchema.objectTypes?.length ?? 0;
+  const startedAt = Date.now();
+  console.log(
+    `[llm-review] started: model=${modelConfig.id} (${modelConfig.label}) mode=${mode} ` +
+    `rootObjectTypes=${rootTypeCount} inputTokenEst=${inputTokenEst}`,
+  );
+
   let openRouterResponse: Response;
   try {
     openRouterResponse = await fetch('https://openrouter.ai/api/v1/chat/completions', {
@@ -62,18 +69,24 @@ export async function POST(request: Request) {
           { role: 'system', content: systemPrompt },
           { role: 'user', content: userContent },
         ],
-        temperature: 0.2,
-        max_tokens: 4096,
+        // Omitted for models whose provider API disallows sampling params (Opus 5).
+        ...(modelConfig.supportsTemperature ? { temperature: 0.2 } : {}),
+        max_tokens: modelConfig.maxOutputTokens,
         response_format: { type: 'json_object' },
       }),
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
+    console.error(`[llm-review] failed after ${Date.now() - startedAt}ms: network error — ${message}`);
     return NextResponse.json({ error: `Network error calling OpenRouter: ${message}` }, { status: 502 });
   }
 
   if (!openRouterResponse.ok) {
     const text = await openRouterResponse.text().catch(() => '');
+    console.error(
+      `[llm-review] failed after ${Date.now() - startedAt}ms: ` +
+      `OpenRouter ${openRouterResponse.status} — ${text.slice(0, 300)}`,
+    );
     return NextResponse.json(
       { error: `OpenRouter API error ${openRouterResponse.status}: ${text}` },
       { status: 502 },
@@ -87,11 +100,13 @@ export async function POST(request: Request) {
   };
 
   if (completion.error?.message) {
+    console.error(`[llm-review] failed after ${Date.now() - startedAt}ms: ${completion.error.message}`);
     return NextResponse.json({ error: completion.error.message }, { status: 502 });
   }
 
   const rawContent = completion.choices?.[0]?.message?.content ?? '';
   if (!rawContent) {
+    console.error(`[llm-review] failed after ${Date.now() - startedAt}ms: empty completion`);
     return NextResponse.json({ error: 'Model returned an empty response' }, { status: 502 });
   }
 
@@ -103,16 +118,24 @@ export async function POST(request: Request) {
       recommendations?: unknown[];
     };
   } catch {
+    console.error(`[llm-review] failed after ${Date.now() - startedAt}ms: non-JSON completion`);
     return NextResponse.json(
       { error: 'Model returned a non-JSON response', raw: rawContent.slice(0, 500) },
       { status: 502 },
     );
   }
 
+  const recommendations = Array.isArray(parsed.recommendations) ? parsed.recommendations : [];
+  console.log(
+    `[llm-review] done in ${Date.now() - startedAt}ms: model=${modelConfig.id} ` +
+    `findings=${recommendations.length} score=${typeof parsed.score === 'number' ? parsed.score : 'n/a'} ` +
+    `tokens=${completion.usage?.prompt_tokens ?? '?'}in/${completion.usage?.completion_tokens ?? '?'}out`,
+  );
+
   return NextResponse.json({
     summary: typeof parsed.summary === 'string' ? parsed.summary : '',
     score: typeof parsed.score === 'number' ? parsed.score : null,
-    recommendations: Array.isArray(parsed.recommendations) ? parsed.recommendations : [],
+    recommendations,
     model: modelConfig.label,
     mode,
     inputTokenEst,

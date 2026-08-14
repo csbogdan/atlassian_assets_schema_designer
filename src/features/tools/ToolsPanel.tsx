@@ -1078,7 +1078,7 @@ function AISchemaReviewCard({ expanded, onToggle, document }: {
             ))}
           </div>
           <p className="mt-1.5 text-xs text-slate-400">
-            Fast: quick scan, low cost · Deep: extended reasoning, 1M context · Expert: precise consultant-style analysis
+            Fast: quick scan, low cost · Deep: extended reasoning · Expert: precise consultant-style analysis · all 1M context
           </p>
         </div>
 

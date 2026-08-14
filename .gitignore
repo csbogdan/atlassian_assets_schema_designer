@@ -12,3 +12,5 @@ src/features/.DS_Store
 # .swarm/
 # .planning/
 # .deploy-settings-hash
+
+.claudeorch/

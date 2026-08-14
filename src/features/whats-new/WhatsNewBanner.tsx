@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 // BANNER_KEY to the next version (v4 → v5 → …). Bumping the key forces the
 // banner to reappear for all users who previously dismissed it.
 // ──────────────────────────────────────────────────────────────────────────
-const BANNER_KEY = 'whats-new-dismissed-v17';
+const BANNER_KEY = 'whats-new-dismissed-v18';
 
 type Feature = {
   icon: string;
@@ -17,10 +17,16 @@ type Feature = {
 
 const FEATURES: Feature[] = [
   {
+    icon: '⚡',
+    title: 'AI Schema Review now runs on current-generation models',
+    description:
+      'The three review models have been upgraded: Gemini 3.7 Flash (fast), Gemini 3.1 Pro (deep reasoning), and Claude Opus 5 (expert). Expert review jumps from a 200 K to a 1 M token context, so large schemas are now analysed in full-document mode instead of falling back to a structural summary. Output budgets were raised as well, giving long finding lists more room.',
+  },
+  {
     icon: '🤖',
     title: 'AI Schema Review',
     description:
-      'New section in the Validation panel: send your schema to an LLM for on-demand quality analysis. Choose between Gemini 2.0 Flash (fast), Gemini 2.5 Pro (deep reasoning), or Claude Opus 4.5 (expert review). Each model uses a tailored prompt and returns a quality score plus prioritised recommendations across naming, structure, mapping, cardinality, best practices, and performance.',
+      'New section in the Tools panel: send your schema to an LLM for on-demand quality analysis. Choose between a fast, a deep-reasoning, or an expert model. Each model uses a tailored prompt and returns a quality score plus prioritised recommendations across naming, structure, mapping, cardinality, best practices, and performance.',
   },
   {
     icon: '📸',
